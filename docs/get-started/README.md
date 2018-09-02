@@ -222,22 +222,22 @@ A sample favicon and HTML file are included.
         
     - **services/** will contain the services.
     
-    - **index.?s** is used by node to start the app.
+    - **index.js** is used by node to start the app.
         
-    - **app.?s** configures Feathers and Express.
+    - **app.js** configures Feathers and Express.
     
-    - **app.hooks.?s** contains hooks which are run for **all** services.
+    - **app.hooks.js** contains hooks which are run for **all** services.
     
-    - **channels.?s** contains the channels sending realtime events to clients.
+    - **channels.js** contains the channels sending realtime events to clients.
         
-    - **logger.?s** configures the [Winston](https://github.com/winstonjs/winston) logger.
+    - **logger.js** configures the [Winston](https://github.com/winstonjs/winston) logger.
     
     - **app.interface.ts** contains the global `App` interface needed to provide typed services.  
     
     - **typings.d.ts** contains declarations of modules that come without typings.
  
 - **test/** contains the tests for the app.
-app.test.?s tests that the index page appears, as well as 404 errors for HTML pages and JSON.
+app.test.js tests that the index page appears, as well as 404 errors for HTML pages and JSON.
 
 - **.editorconfig** is compatible with the [EditorConfig project](http://editorconfig.org/)
 and helps developers define and maintain consistent coding styles among different editors and IDEs.
@@ -602,30 +602,30 @@ or [TS one](https://github.com/feathers-plus/generator-feathers-plus/tree/master
 - **models/**. Some database adapters require models for their tables.
 Those models are located here.
 
-    - **users.model.?s** is the model for the users table.
+    - **users.model.js** is the model for the users table.
     
 - **services/users** contains code for the users service.
 
-    - **users.service/?s** configures the service.
-    - **users.hooks.?s** identifies the hooks to be used with the service.
-    - **users.schema.?s** contains the database agnostic JSON-schema model for the service.
+    - **users.service.js** configures the service.
+    - **users.hooks.js** identifies the hooks to be used with the service.
+    - **users.schema.js** contains the database agnostic JSON-schema model for the service.
     When a service is initially created. the module contains an empty model as no model has yet
     been defined.
-    - **users.mongo.?s, users.mongoose.?s, users.sequelize.?s** contain the JSON-schema model
-    in users.schema.?s converted to a MongoDB, Mongoose or Sequelize model.
-    - **users.validate.?s** contains schemas to validate data for create, patch and update service calls.
+    - **users.mongo.js, users.mongoose.js, users.sequelize.js** contain the JSON-schema model
+    in users.schema.js converted to a MongoDB, Mongoose or Sequelize model.
+    - **users.validate.js** contains schemas to validate data for create, patch and update service calls.
     - **users.interface.ts** contains a TypeScript interface describing a single `user` entity.
     
-- **authentication.?s** contains the authentication code.
+- **authentication.js** contains the authentication code.
 
-- **mongoose.?s** configures the Mongoose adapter.
-knex.?s, mongodb.?s, rethinkdb.?s, sequelize.?s and sequelize-mssql.?s models would also be created as needed.
+- **mongoose.js** configures the Mongoose adapter.
+knex.js, mongodb.js, rethinkdb.js, sequelize.js and sequelize-mssql.js models would also be created as needed.
 
-- **test/service/users.test.?s** tests the service can be started. 
+- **test/service/users.test.js** tests the service can be started. 
 
 :::tip All those modules
-Only one of users.mongo.?s, users.mongoose.?s, users.sequelize.?s is being used at any time.
-The code generated for users.service.?s and users.model.?s call the right modules for the **What kind of service is it?**
+Only one of users.mongo.js, users.mongoose.js, users.sequelize.js is being used at any time.
+The code generated for users.service.js and users.model.js call the right modules for the **What kind of service is it?**
 selected.
 
 The modules are all generated so you may include all the custom code you need for all of them.
@@ -679,7 +679,7 @@ The [JSON-schema manual](../json-schema/) serves as an introduction to it.
 #### Adding the Feathers Model
 
 The users service was created with an empty Feathers model, i.e. it has no fields.
-Let's now define a model for it in module **src/services/users/users.schema.?s**.
+Let's now define a model for it in module **src/services/users/users.schema.js**.
 The guide contains detailed information on defining models.
 
 Our resulting model contains 4 fields, and an id field will be added automatically.
@@ -739,7 +739,7 @@ This is an important concept in JSON-schema and its
 #### Regenerating the Service
 
 We can now regenerate the service. The generator will detect the Feathers model and use it to
-"fill in" modules such as users.mongoose.?s and users.validate.?s.
+"fill in" modules such as users.mongoose.js and users.validate.js.
 
 ```
 feathers-plus generate service
@@ -976,7 +976,7 @@ Their modules, models, tests and (optionally) service call paths will reflect th
 
 #### Adding the Feathers Models
 
-Now we add a Feathers model to src/services/roles/roles.schema.?s:
+Now we add a Feathers model to src/services/roles/roles.schema.js:
 
 ```js
 let schema = {
@@ -1008,7 +1008,7 @@ let schema = {
 };
 ```
 
-And one to src/services/teams/teams.schema.?s:
+And one to src/services/teams/teams.schema.js:
 
 ```js
 // Define the model using JSON-schema
@@ -1125,11 +1125,11 @@ or [TS one](https://github.com/feathers-plus/generator-feathers-plus/tree/master
 <collapse-image hidden title="Folders After 'generate service' with JavaScript" url="/assets/get-started/generate-service-model-dir-compare.png" />
 <collapse-image hidden title="Folders After 'generate service' with TypeScript" url="/assets/get-started/ts-generate-service-model-dir-compare.png" />
 
-- **models/teams.model.?s** contains the model for teams.
+- **models/teams.model.js** contains the model for teams.
 
 - **services/teams** contains modules for teams.
 
-- **test/services/teams.test.?s** tests the team service is configured.
+- **test/services/teams.test.js** tests the team service is configured.
 
 ## generate fakes
 
@@ -1661,7 +1661,7 @@ You can run it yourself with `npm i` and `npm start`.
 
 - We converted the services to NeDB so the example is easy to run.
 - We added some additional information to the service schemas.
-- We initialize the NeDB tables in src/index.?s.
+- We initialize the NeDB tables in src/index.js.
 - We also run some GraphQL queries there.
 
 #### Types
@@ -2072,7 +2072,7 @@ and thankfully cli-plus generates them.
 Now that we understand what we expect to implement with the GraphQL endpoint,
 let's see how to accomplish it.
 
-src/services/users/users.schema.?s contains an outline of GraphQL extensions
+src/services/users/users.schema.js contains an outline of GraphQL extensions
 to the users Feathers model.
 ```js
 // Define optional, non-JSON-schema extensions.
@@ -2226,7 +2226,7 @@ GraphQL comes with a set of default scalar types out of the box:
 :::
     
 Note we do not say how the field is calculated. cli-plus will generate resolver functions
-in src/services/service.resolvers.?s and /batchloader.resolvers.?s like
+in src/services/service.resolvers.js and /batchloader.resolvers.js like
 ```js
 User: {
   // fullName: String!
@@ -2248,7 +2248,7 @@ User: {
 }    
 ``` 
 
-We would customize the SQL resolvers in src/services/graphql/sql.metadata.?s
+We would customize the SQL resolvers in src/services/graphql/sql.metadata.js
 ```js
 User: {
   sqlTable: 'Users',
@@ -2550,26 +2550,26 @@ or [TS one](https://github.com/feathers-plus/generator-feathers-plus/tree/master
 <collapse-image hidden title="Folders After 'generate graphql' with JavaScript" url="/assets/get-started/generate-graphql-dir-compare.png" />
 <collapse-image hidden title="Folders After 'generate graphql' with TypeScript" url="/assets/get-started/ts-generate-graphql-dir-compare.png" />
 
-- **graphql.schemas.?s** The GraphQL type definitions.
-- **graphql.service.?s** Configures the GraphQL service for the strategy chosen in the
+- **graphql.schemas.js** The GraphQL type definitions.
+- **graphql.service.js** Configures the GraphQL service for the strategy chosen in the
 *How should Queries be completed?* question.
-- **graphql.hooks.?s** Feathers hooks for the GraphQL service.
+- **graphql.hooks.js** Feathers hooks for the GraphQL service.
 - **graphql.interfaces.ts** - ?????????????????????????????????????????????
-- **service.resolvers.?s** Resolver functions for the *Using standalone Feathers service calls* strategy.
-- **batchloader.resolvers.?s** Resolver functions for the *Using BatchLoaders* strategy.
+- **service.resolvers.js** Resolver functions for the *Using standalone Feathers service calls* strategy.
+- **batchloader.resolvers.js** Resolver functions for the *Using BatchLoaders* strategy.
 
 Several modules are used for the *Using dynamic SQL statements* strategy:
 
-- **sql.resolvers.?s** Resolver functions for the strategy.
-- **sql.metadata.?s** Meta data used by [join-monster](https://join-monster.readthedocs.io/en/latest/)
+- **sql.resolvers.js** Resolver functions for the strategy.
+- **sql.metadata.js** Meta data used by [join-monster](https://join-monster.readthedocs.io/en/latest/)
 to dynamically construct the raw SQL statement.
-- **sql.execute.sequelize.?s** Execute a raw SQL statement using Sequelize.
-- **sql.execute.knex.?s** Execute a raw SQL statement with Knex.
-- **sql.execute.custom.?s** Execute a raw SQL statement in a custom environment.
+- **sql.execute.sequelize.js** Execute a raw SQL statement using Sequelize.
+- **sql.execute.knex.js** Execute a raw SQL statement with Knex.
+- **sql.execute.custom.js** Execute a raw SQL statement in a custom environment.
 
 :::tip All those modules
-Only one of service.resolvers.?s, batchloader.resolvers.?s or sql.**.?s is/are being used at any time.
-The code generated in graphql.service.?s calls the right modules for the *How should Queries be completed?*
+Only one of service.resolvers.js, batchloader.resolvers.js or sql.**.js is/are being used at any time.
+The code generated in graphql.service.js calls the right modules for the *How should Queries be completed?*
 selected.
 
 The modules are all generated so you may include all the custom code you need for all of them.
