@@ -453,6 +453,7 @@ module.exports = function generatorWriting (generator, what) {
       );
     } else {
       todos = todos.concat(
+        copy([tpl, 'nodemon.json'], 'nodemon.json', true),
         copy([tpl, 'tslint.json'], 'tslint.json', true),
         tmpl([tpl, 'tsconfig.json'], 'tsconfig.json', true),
         copy([tpl, 'tsconfig.test.json'], 'tsconfig.test.json', true),
@@ -497,6 +498,7 @@ module.exports = function generatorWriting (generator, what) {
         '@types/mocha',
         '@types/request-promise',
         '@types/winston',
+        'nodemon',
         'ts-mocha',
         'ts-node',
         'tslint',

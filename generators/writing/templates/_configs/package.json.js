@@ -37,6 +37,7 @@ module.exports = function(generator) {
     test: `${packager} run tslint && npm run mocha`,
     'test:all': `${packager} run tslint && NODE_ENV= npm run mocha`,
     tslint: 'tslint -p tsconfig.json -c tslint.json && tslint -p tsconfig.test.json -c tslint.json',
+    dev: `nodemon ${specs.app.src}/index.ts`,
     start: `ts-node --files ${specs.app.src}/`,
     'start:seed': 'NODE_ENV= ts-node --seed --files src/',
     mocha: 'ts-mocha -p tsconfig.test.json "test/**/*.test.ts" --timeout 10000 --exit',

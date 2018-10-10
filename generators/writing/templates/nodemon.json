@@ -1,0 +1,6 @@
+{
+	"watch": ["src/**/*.ts"],
+	"execMap": {
+		"ts": "tslint -p tsconfig.json -c tslint.json && ts-node --files --seed --typeCheck"
+	}
+}
