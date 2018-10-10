@@ -377,17 +377,39 @@ module.exports = function generatorWriting (generator, what) {
     const rules = eslintrc.rules = eslintrc.rules || {};
     const rulesSemi = rules.semi;
 
+    // Modify tslint.json for semicolon option
+    let tslintExists = true;
+    let tslintJsonChanged = false;
+    let tslintjson = generator.fs.readJSON(join(process.cwd(), 'tslint.json'), {});
+
+    if (!Object.keys(tslintjson).length) {
+      tslintExists = false;
+      tslintjson = generator.fs.readJSON(join(tpl, '_tslint.json'), {});
+    }
+
+    const tsRules = tslintjson.rules = tslintjson.rules || {};
+    const tsRulesSemi = tsRules.semicolon;
+
+
     if (context.sc) {
       // semicolons used
       if (!Array.isArray(rulesSemi) || rulesSemi[0] !== 'error') {
         eslintrc.rules.semi = ['error', 'always'];
         eslintrcChanged = true;
       }
+      if (!Array.isArray(tsRulesSemi) || tsRulesSemi[0] !== true) {
+        tslintjson.rules.semicolon = true;
+        tslintJsonChanged = true;
+      }
     } else {
       // semicolons not used
       if (rulesSemi) {
         delete rules.semi;
         eslintrcChanged = true;
+      }
+      if (tsRulesSemi) {
+        tslintjson.rules.semicolon = false;
+        tslintJsonChanged = true;
       }
     }
 
@@ -453,8 +475,8 @@ module.exports = function generatorWriting (generator, what) {
       );
     } else {
       todos = todos.concat(
+        json(tslintjson, 'tslint.json', null, tslintExists && !tslintJsonChanged),
         copy([tpl, 'nodemon.json'], 'nodemon.json', true),
-        copy([tpl, 'tslint.json'], 'tslint.json', true),
         tmpl([tpl, 'tsconfig.json'], 'tsconfig.json', true),
         copy([tpl, 'tsconfig.test.json'], 'tsconfig.test.json', true),
       );
