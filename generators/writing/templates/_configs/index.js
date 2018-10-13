@@ -3,5 +3,5 @@ module.exports = {
   configProduction: require('./config.production.json.js'),
   configTest: require('./config.test.json.js'),
   package: require('./package.json.js'),
-  nodemon: require('./config.nodemon.json.js')
+  nodemon: require('./nodemon.json.js')
 };
