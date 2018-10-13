@@ -343,6 +343,10 @@ module.exports = function generatorWriting (generator, what) {
       generator.destinationPath(`${appConfigPath}/production.json`), makeConfig.configProduction(generator)
     );
 
+    const nodemonConfig = generator.fs.readJSON(
+      generator.destinationPath('nodemon.json'), makeConfig.nodemon(generator, 'development')
+    );
+
     // update test:all script for first test environment
     const firstTestEnv = configDefault.tests.environmentsAllowingSeedData[0];
     const testAll = pkg.scripts['test:all'];
@@ -476,7 +480,7 @@ module.exports = function generatorWriting (generator, what) {
     } else {
       todos = todos.concat(
         json(tslintjson, 'tslint.json', null, tslintExists && !tslintJsonChanged),
-        copy([tpl, 'nodemon.json'], 'nodemon.json', true),
+        json(nodemonConfig, 'nodemon.json'),
         tmpl([tpl, 'tsconfig.json'], 'tsconfig.json', true),
         copy([tpl, 'tsconfig.test.json'], 'tsconfig.test.json', true),
       );
