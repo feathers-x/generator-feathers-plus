@@ -1,4 +1,3 @@
-
 // Typings. (Can be re-generated.)
 <%- insertFragment('imports') %>
 <%- insertFragment('init') %>
@@ -17,7 +16,6 @@ declare module 'primus'<%- sc %>
 <% if (specs.authentication && specs.authentication.strategies.length &&
   (specs.authentication.strategies.indexOf('auth0') !== -1 || specs.authentication.strategies.indexOf('google') !== -1)) {
 -%>
-
 // Authentication.
 <% } -%>
 <%# --- if-2 ends above. -%>
@@ -41,7 +39,6 @@ declare module 'passport-google-oauth20'<%- sc %>
 <%# -%>
 <%# --- if-5 starts below. -%>
 <% if (__adapters.length) { -%>
-
 // Services.
 <% } -%>
 <%# --- if-5 ends above. -%>
@@ -56,7 +53,6 @@ declare module 'feathers-<%- name %>'<%- sc %>
 <%# -%>
 <%# --- if-5 starts below. -%>
 <% if (specs.graphql) { -%>
-
 // GraphQL.
 declare module '@feathers-plus/graphql'<%- sc %>
 declare module 'merge-graphql-schemas'<%- sc %>
