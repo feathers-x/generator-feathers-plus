@@ -1,0 +1,36 @@
+module.exports = function () {
+
+  const tslint = {
+    defaultSeverity: "error",
+    extends: [
+      "tslint:recommended"
+    ],
+    jsRules: {},
+    rules: {
+      "arrow-parens": false,
+      "no-consecutive-blank-lines": false,
+      "interface-name": false,
+      "linebreak-style": [true, "LF"],
+      "no-require-imports": false,
+      "object-literal-sort-keys": false,
+      "one-variable-per-declaration": false,
+      "only-arrow-functions": false,
+      "ordered-imports": false,
+      "prefer-const": false,
+      "quotemark": [true, "single"],
+      "semicolon": true,
+      "space-before-function-paren": false,
+      "trailing-comma": false,
+      "variable-name": [
+        true,
+        "check-format",
+        "allow-leading-underscore",
+        "allow-trailing-underscore",
+        "allow-pascal-case"
+      ]
+    },
+    rulesDirectory: []
+  };
+
+  return tslint;
+};
