@@ -3,6 +3,12 @@
 <%- insertFragment('imports') %>
 <%- insertFragment('init') %>
 
+// Json
+declare module '*.json' {
+	const value: any
+	export default value
+}
+
 // Application.
 <%# -%>
 <%# --- if-1 starts below. -%>
