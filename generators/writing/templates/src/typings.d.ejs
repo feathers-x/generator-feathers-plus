@@ -3,14 +3,12 @@
 <%- insertFragment('imports') %>
 <%- insertFragment('init') %>
 
-// Json
+// Application.
+<%# -%>
 declare module '*.json' {
 	const value: any
 	export default value
 }
-
-// Application.
-<%# -%>
 <%# --- if-1 starts below. -%>
 <% if (specs.app.providers.indexOf('primus') !== -1) { -%>
 declare module 'primus'<%- sc %>
