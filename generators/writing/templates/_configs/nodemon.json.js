@@ -20,8 +20,8 @@ module.exports = function (generator, envName) {
       NODE_ENV: envName
     },
     events: {
-      start: `eslint ${secs.app.src}/. test/. --config .eslintrc.json`,
-      restart: `eslint ${secs.app.src}/. test/. --config .eslintrc.json`
+      start: `eslint ${specs.app.src}/. test/. --config .eslintrc.json`,
+      restart: `eslint ${specs.app.src}/. test/. --config .eslintrc.json`
     }
   };
   return config;
