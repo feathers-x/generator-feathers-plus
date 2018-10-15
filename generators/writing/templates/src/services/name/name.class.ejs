@@ -89,7 +89,7 @@ export class Service implements Partial<ServiceMethods<any>>, SetupMethod {
   }
 
   <%- insertFragment('setup', [
-    '  setup (app: App, path: string): void {',
+    '  public setup (app: App, path: string): void {',
     `    this.app = app${sc}`,
     '  }'
   ]) %>
