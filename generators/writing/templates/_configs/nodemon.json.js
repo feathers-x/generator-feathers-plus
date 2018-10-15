@@ -13,6 +13,7 @@ module.exports = function (generator, envName) {
       ts: 'ts-node --files --typeCheck'
     },
     events: {
+      start: 'tslint -p tsconfig.json -c tslint.json',
       restart: 'tslint -p tsconfig.json -c tslint.json'
     }
   } : {
