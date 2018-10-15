@@ -707,6 +707,8 @@ module.exports = function generatorWriting (generator, what) {
         case 'knex':
           devDependencies.push('@types/knex');
           break;
+        case 'mongodb':
+          devDependencies.push('@types/mongodb');
         case 'mongoose':
           devDependencies.push('@types/mongoose');
           break;
