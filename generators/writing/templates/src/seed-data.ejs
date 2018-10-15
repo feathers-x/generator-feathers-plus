@@ -3,7 +3,7 @@
 <%- tplImports('{ join }', 'path') %>
 <%- tplImports('{ readJsonFileSync }', '@feathers-plus/test-utils') %>
 <%- tplImports('config', '../config/default.json') %>
-<%- `${tplTsOnly(import { App } from \'../src/app.interface\')}${sc}` %>
+<%- tplTsOnly(import { App } from \'../src/app.interface\') %>
 <%- insertFragment('imports') %>
 
 // Determine if command line argument exists for seeding data
@@ -22,8 +22,8 @@ let services = (readJsonFileSync(join(__dirname, '../feathers-gen-specs.json')) 
 
 <%- tplModuleExports(null, 'async function (app) {', 'async function (app: App) {') %>
   <%- insertFragment('func_init') %>
-  if (!ifSeedServices) return<%- sc %>
-  if (!ifDbChangesAllowed) return<%- sc %>
+  if (!ifSeedServices) { return<%- sc %> }
+  if (!ifDbChangesAllowed) { return<%- sc %> }
 
   if (!Object.keys(fakeData).length) {
     console.log('Cannot seed services as seed/fake-data.json doesn\'t have seed data.')<%- sc %>
