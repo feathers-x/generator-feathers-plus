@@ -48,6 +48,7 @@ module.exports = function(generator) {
     'test:all': `${packager} run eslint && NODE_ENV= npm run mocha`,
     eslint: `eslint ${specs.app.src}/. test/. --config .eslintrc.json`,
     dev: `nodemon ${specs.app.src}/`,
+    'dev:seed': `nodemon ${specs.app.src}/ --seed`,
     start: `node ${specs.app.src}/`,
     'start:seed': 'NODE_ENV= node src/ --seed',
     mocha: 'mocha test/ --recursive --exit --timeout 10000'

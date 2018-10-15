@@ -444,6 +444,7 @@ module.exports = function generatorWriting (generator, what) {
       json(pkg,           'package.json'),
       json(configDefault, [appConfigPath, 'default.json']),
       json(configProd,    [appConfigPath, 'production.json']),
+      json(nodemonConfig, 'nodemon.json'),
 
       tmpl([tpl, 'src', 'index.ejs'],     [src, `index.${js}`]),
       tmpl([tpl, 'src', 'app.hooks.ejs'], [src, `app.hooks.${js}`]),
@@ -480,7 +481,6 @@ module.exports = function generatorWriting (generator, what) {
     } else {
       todos = todos.concat(
         json(tslintjson, 'tslint.json', null, tslintExists && !tslintJsonChanged),
-        json(nodemonConfig, 'nodemon.json'),
         tmpl([tpl, 'tsconfig.json'], 'tsconfig.json', true),
         copy([tpl, 'tsconfig.test.json'], 'tsconfig.test.json', true),
       );
