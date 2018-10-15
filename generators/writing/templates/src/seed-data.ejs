@@ -3,7 +3,7 @@
 <%- tplImports('{ join }', 'path') %>
 <%- tplImports('{ readJsonFileSync }', '@feathers-plus/test-utils') %>
 <%- tplImports('config', '../config/default.json') %>
-<%- tplTsOnly(import { App } from \'../src/app.interface\') %>
+<%- tplTsOnly([`import { App } from \'../src/app.interface\'${sc}`]) %>
 <%- insertFragment('imports') %>
 
 // Determine if command line argument exists for seeding data
@@ -62,6 +62,7 @@ let services = (readJsonFileSync(join(__dirname, '../feathers-gen-specs.json')) 
       }
     }
   }
+
   <%- insertFragment('func_return') %>
 }<%- sc %>
 
