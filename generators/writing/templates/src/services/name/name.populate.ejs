@@ -1,0 +1,160 @@
+
+// fgraphql populate hook for service `<%= serviceName %>`. (Can be re-generated.)
+<%- tplImports('runTime', '@feathers-plus/graphql/lib/run-time') %>
+<%- tplImports('{ fgraphql, serialize }', 'feathers-hooks-common') %>
+<%- tplImports('{ parse }', 'graphql') %>
+<%- insertFragment('graphql', specs.graphql ? [
+      tplImports('schema', `../../${subFolderReverse}services/graphql/graphql.schemas`),
+      tplImports('resolvers', `../../${subFolderReverse}services/graphql/service.resolvers`),
+    ] : [
+      `const schema = ''${sc}`,
+      `const resolvers = {}${sc}`,
+    ]
+) %>
+<%- insertFragment('imports') %>
+<%- insertFragment('init') %>
+
+const queries = {
+  // No populate
+  none: {},
+  // All resolver fields 1 level deep.
+  oneLevel: {
+    query: {
+<%# -%>
+<%# --- forEach-1 starts below. For all joins in parent-%>
+<% __add = feathersSpecs[serviceName]._extensions.graphql.add;
+Object.keys(__add).forEach(__join => {
+    __joinService = __add[__join].serviceName;
+-%>
+      <%- __join %>: {},
+<% }) -%>
+<%# --- forEach-1 ends above. -%>
+    }
+  },
+  // All resolver fields 2 levels deep.
+  twoLevels: {
+    query: {
+<%# -%>
+<%# --- forEach-2 starts below. For all joins in parent-%>
+<% __add = feathersSpecs[serviceName]._extensions.graphql.add;
+Object.keys(__add).forEach(__join => {
+    __joinService = __add[__join].serviceName;
+-%>
+      <%- __join %>: {
+<%# -%>
+<%# --- if-2a starts below. -%>
+<% if (feathersSpecs[__joinService] && feathersSpecs[__joinService].properties) { -%>
+<%# -%>
+<%# --- forEach-2a2 starts below. For all joins in child -%>
+<% __add1 = feathersSpecs[__joinService]._extensions.graphql.add;
+Object.keys(__add1).forEach(__join1 => {
+-%>
+        <%- __join1 %>: {},
+<% }) -%>
+<%# --- forEach-2a2 ends above. -%>
+<% } -%>
+<%# --- if-2a ends above. -%>
+      },
+<% }) -%>
+<%# --- forEach-2 ends above. -%>
+    }
+  },
+  <%- insertFragment('queries') %>
+}<%- sc %>
+
+async function <%= serviceName %>Populate (context) {
+  // <%- lintDisableNextLineUnused %>
+  const params = context.params<%- sc %>
+  let query, options, serializer<%- sc %>
+
+  if (params.$populate) { return context<%- sc %> } // another populate is calling this service
+
+  <%- insertFragment('populate', [
+  '  // Example: always the same query',
+  `  ({ query, options, serializer } = queries.foo)${sc}`,
+  '',
+  '  // Example: select query based on user being authenticated or not',
+  `  ${sc ? '' : ';'}({ query, options, serializer } = queries[params.user ? queries.foo : queries.bar])${sc}`,
+  '',
+  '  // Example: select query based on the user role',
+  '  if (params.user && params.user.roles.includes(\'foo\')) {',
+  `    ({ query, options, serializer } = queries.foo)${sc}`,
+  '  }',
+  '',
+  '  // Example: allow client to provide the query',
+  '  if (params.$populateQuery) {',
+  `    ({ query, options, serializer } = params.$populateQuery)${sc}`,
+  '  }',
+  '',
+  '  // Populate the data.',
+  '  let newContext = await fgraphql({',
+  '    parse,',
+  '    runTime,',
+  '    schema,',
+  '    resolvers,',
+  `    recordType: '${graphqlTypeName}',`,
+  '    query,',
+  '    options,',
+  `  })(context)${sc}`,
+  '',
+  '  // Prune and sanitize the data.',
+  '  if (serializer) {',
+  `    newContext = serialize(serializer)(newContext)${sc}`,
+  '  }',
+  '',
+  '  // End the hook.',
+  `  return newContext${sc}`,
+]) %>
+}
+
+<%- insertFragment('more') %>
+let moduleExports = <%= serviceName %>Populate<%- sc %>
+
+<%- insertFragment('exports') %>
+<%- `${tplExport('moduleExports')}${sc}` %>
+
+<%- insertFragment('funcs') %>
+<%- insertFragment('end') %>
+
+/* For your information: all record and resolver fields 2 levels deep.
+const twoLevelsFields = {
+  query: {
+<%# -%>
+<%# --- forEach-3 starts below. For all rec fields in parent-%>
+<% Object.keys(feathersSpecs[serviceName].properties).forEach(__name => { -%>
+    <%- __name %>: 1,
+<% }) -%>
+<%# --- forEach-3 ends above. -%>
+<%# -%>
+<%# --- forEach-4 starts below. For all joins in parent-%>
+<% __add = feathersSpecs[serviceName]._extensions.graphql.add;
+   Object.keys(__add).forEach(__join => {
+     __joinService = __add[__join].serviceName;
+-%>
+    <%- __join %>: {
+      _args: {},
+<%# -%>
+<%# --- if-4a starts below. -%>
+<% if (feathersSpecs[__joinService] && feathersSpecs[__joinService].properties) { -%>
+<%# -%>
+<%# --- forEach-4a1 starts below. For all rec fields in child -%>
+<% Object.keys(feathersSpecs[__joinService].properties).forEach(__name1 => { -%>
+      <%- __name1 %>: 1,
+<% }) -%>
+<%# --- forEach-4a1 ends above. -%>
+<%# -%>
+<%# --- forEach-4a2 starts below. For all joins in child -%>
+<% __add1 = feathersSpecs[__joinService]._extensions.graphql.add;
+Object.keys(__add1).forEach(__join1 => {
+-%>
+      <%- __join1 %>: {},
+<% }) -%>
+<%# --- forEach-4a2 ends above. -%>
+<% } -%>
+<%# --- if-4a ends above. -%>
+    },
+<% }) -%>
+<%# --- forEach-4 ends above. -%>
+  }
+}<%- sc %>
+*/

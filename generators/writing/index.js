@@ -1,6 +1,5 @@
 
 /* eslint-disable no-console */
-const Ajv = require('ajv');
 const crypto = require('crypto');
 const merge = require('lodash.merge');
 const mongoose = require('mongoose');
@@ -16,7 +15,6 @@ const { join } = require('path');
 const kebabCase = kebabCase1; //name => name === 'users1' ? name : kebabCase1(name);
 
 const doesFileExist = require('../../lib/does-file-exist');
-const jsonSchemaDraft07Schema = require('../../lib/json-schema-draft-07-schema');
 const makeConfig = require('./templates/_configs');
 const serviceSpecsExpand = require('../../lib/service-specs-expand');
 const serviceSpecsToGraphql = require('../../lib/service-specs-to-graphql');
@@ -25,6 +23,8 @@ const serviceSpecsToMongoose = require('../../lib/service-specs-to-mongoose');
 const serviceSpecsToSequelize = require('../../lib/service-specs-to-sequelize');
 const serviceSpecsToTypescript = require('../../lib/service-specs-to-typescript');
 const stringifyPlus = require('../../lib/stringify-plus');
+const validationErrorsLog = require('../../lib/validation-errors-log');
+const validateJsonSchema = require('../../lib/validate-json-schema');
 
 const { generatorFs } = require('../../lib/generator-fs');
 const { updateSpecs } = require('../../lib/specs');
@@ -125,11 +125,6 @@ function abstractTs(specs) {
   };
 }
 
-// JSON-schema validation
-const ajv = new Ajv();
-const validate = ajv.compile(jsonSchemaDraft07Schema);
-let errorMessages = null;
-
 // Utilities
 let generators;
 function generatorsInclude (name) {
@@ -176,6 +171,10 @@ module.exports = function generatorWriting (generator, what) {
 
   // Get expanded Feathers service specs
   const { mapping, feathersSpecs } = serviceSpecsExpand(specs, generator);
+
+  //inspector('\n...specs', specs);
+  //inspector('\n...mapping', mapping);
+  //inspector('\n...feathersSpecs', feathersSpecs);
 
   // Basic context used with templates.
   let context = Object.assign({}, {
@@ -623,20 +622,18 @@ module.exports = function generatorWriting (generator, what) {
     // inspector(`\n... feathersSpecs ${name} (generator ${what})`, feathersSpecs[name]);
 
     // Validate JSON-schema (not non-JSON-schema props like .extensions)
-    const isValid = validate(feathersSpecs[name]);
-    if (!isValid) {
-      addErrors(validate.errors);
-      console.log(`\n\nJSON-schema validation errors in JSON-schema for service ${name}`);
-      console.log('==================================================================');
-      errorMessages.forEach((msg, i) => {
-        console.log(i, msg);
-      });
-      console.log('\n\n');
-    }
+    validateJsonSchema(name, feathersSpecs[name]);
 
     // Custom template context.
     const { typescriptTypes, typescriptExtends } =
       serviceSpecsToTypescript(specsService, feathersSpecs[name], feathersSpecs[name]._extensions);
+
+    let graphqlTypeName;
+    if (specs.graphql && specsService.graphql && name !== 'graphql') {
+      graphqlTypeName = ((feathersSpecs[name]._extensions.graphql || {}).name)
+        || (specsService.nameSingular.charAt(0).toUpperCase() + specsService.nameSingular.slice(1));
+    }
+
     context = Object.assign({}, context, {
       serviceName: name,
       serviceNameSingular: specsService.nameSingular,
@@ -644,6 +641,7 @@ module.exports = function generatorWriting (generator, what) {
       subFolderArray: generator.getNameSpace(specsService.subFolder)[1],
       subFolderReverse: generator.getNameSpace(specsService.subFolder)[2],
       primaryKey: feathersSpecs[name]._extensions.primaryKey,
+      graphqlTypeName,
       camelName,
       kebabName: fileName,
       snakeName,
@@ -759,6 +757,7 @@ module.exports = function generatorWriting (generator, what) {
       tmpl([namePath, 'name.sequelize.ejs'],        [libDir,  'services', ...sfa, fn, `${fn}.sequelize.${js}`]   ),
       tmpl([namePath, 'name.validate.ejs'],         [libDir,  'services', ...sfa, fn, `${fn}.validate.${js}`]    ),
       tmpl([namePath, 'name.hooks.ejs'],            [libDir,  'services', ...sfa, fn, `${fn}.hooks.${js}`]       ),
+      tmpl([namePath, 'name.populate.ejs'],         [libDir,  'services', ...sfa, fn, `${fn}.populate.${js}`],   false, !graphqlTypeName        ),
       tmpl([serPath,  'index.ejs'],                 [libDir,  'services', `index.${js}`]                         ),
 
       tmpl([tpl, 'src', 'app.interface.ejs'], [src, 'app.interface.ts'],         false, isJs),
@@ -779,7 +778,8 @@ module.exports = function generatorWriting (generator, what) {
     // Determine which hooks are needed
     function getHookInfo(name) {
       const sc = context.sc;
-      const isMongo = (mapping.feathers[name] || {}).adapter === 'mongodb';
+      //const isMongo = (mapping.feathers[name] || {}).adapter === 'mongodb';
+      const isMongo = specs.services[name].adapter === 'mongodb';
       const requiresAuth = specsService.requiresAuth;
 
       const hooks = [ 'iff' ];
@@ -1035,6 +1035,8 @@ module.exports = function generatorWriting (generator, what) {
       subFolderArray: [],
       subFolderReverse: '',
 
+      graphqlTypeName: undefined,
+
       path: stripSlashes(specs.graphql.path),
       authentication: false,
       isAuthEntityWithAuthentication: false,
@@ -1046,10 +1048,6 @@ module.exports = function generatorWriting (generator, what) {
       graphqlSchemas: serviceSpecsToGraphql(feathersSpecs),
       libDirectory: generator.libDirectory
     });
-
-    // inspector('\n... graphqlSchemas\n', context.graphqlSchemas.split('\n'));
-    // inspector('\n... mapping.graphqlService', context.mapping.graphqlService);
-    // inspector('\n... feathersSpecs', context.feathersSpecs);
 
     todos = [
       tmpl([testPath, 'services', 'name.test.ejs'], [testDir, 'services', `graphql.test.${js}`], true),
@@ -1355,14 +1353,12 @@ module.exports = function generatorWriting (generator, what) {
         tmpl([testPath, 'services', 'name', 'service.client.test.ejs'], ['test', pathToTest], true, testType === 'serviceUnit'),
       ];
 
-      if (testType === 'serviceInteg') {
-        generator._packagerInstall(isJs ? [
-          '@feathers-plus/test-utils'
-        ] : [
-          //'@types/???',
-          '@feathers-plus/test-utils'
-        ], { save: true }); // because seeding DBs also uses it
-      }
+      generator._packagerInstall(isJs ? [
+        '@feathers-plus/test-utils'
+      ] : [
+        //'@types/???',
+        '@feathers-plus/test-utils'
+      ], { save: true }); // because seeding DBs also uses it
     }
 
     // Generate modules
@@ -1374,26 +1370,26 @@ function writeAuthenticationConfiguration (generator, context) {
   const config = Object.assign({}, generator._specs._defaultJson);
   const path = context.servicePath;
 
-  config.authentication = {
-    secret: generator._specs._isRunningTests
-      ? '***** secret generated for tests *****'
-      : (config.authentication || {}).secret || crypto.randomBytes(256).toString('hex'),
-    strategies: [ 'jwt' ],
-    path: '/authentication',
-    service: path.substring(0,1) !== '/' ? path : context.servicePath.substring(1),
-    jwt: {
-      header: { typ: 'access' },
-      audience: 'https://yourdomain.com',
-      subject: 'anonymous',
-      issuer: 'feathers',
-      algorithm: 'HS256',
-      expiresIn: '1d'
-    }
+  const configAuth = config.authentication = config.authentication || {};
+  configAuth.secret = generator._specs._isRunningTests
+    ? '***** secret generated for tests *****'
+    : (configAuth.secret || crypto.randomBytes(256).toString('hex'));
+  configAuth.strategies = [ 'jwt' ];
+  configAuth.path = '/authentication';
+  configAuth.service = path.substring(0,1) !== '/' ? path : context.servicePath.substring(1);
+
+  configAuth.jwt = configAuth.jwt || {
+    header: { typ: 'access' },
+    audience: 'https://yourdomain.com',
+    subject: 'anonymous',
+    issuer: 'feathers',
+    algorithm: 'HS256',
+    expiresIn: '1d'
   };
 
   if (context.strategies.indexOf('local') !== -1) {
-    config.authentication.strategies.push('local');
-    config.authentication.local = {
+    configAuth.strategies.push('local');
+    configAuth.local = configAuth.local || {
       entity: 'user',
       usernameField: 'email',
       passwordField: 'password'
@@ -1425,12 +1421,12 @@ function writeAuthenticationConfiguration (generator, context) {
         strategyConfig.scope = ['profile openid email'];
       }
 
-      config.authentication[strategy] = strategyConfig;
+      configAuth[strategy] = configAuth[strategy] || strategyConfig;
     }
   });
 
   if (includesOAuth) {
-    config.authentication.cookie = {
+    configAuth.cookie = configAuth.cookie || {
       enabled: true,
       name: 'feathers-jwt',
       httpOnly: false,
@@ -1475,27 +1471,6 @@ function writeDefaultJsonClient (generator) {
     generator.destinationPath(appConfigPath, 'default.json'),
     config
   );
-}
-
-function addErrors (errors) {
-  errors.forEach(ajvError => {
-    errorMessages = addNewError(errorMessages, ajvError);
-  });
-}
-
-function addNewError (errorMessages, ajvError) {
-  let message = `${ajvError.dataPath || ''} ${ajvError.message}`;
-
-  if (ajvError.params) {
-    if (ajvError.params.additionalProperty) {
-      message += `: ${ajvError.params.additionalProperty}`;
-    }
-    if (ajvError.params.allowedValues) {
-      message += `: ${ajvError.params.allowedValues}`;
-    }
-  }
-
-  return (errorMessages || []).concat(message);
 }
 
 // eslint-disable-next-line no-unused-vars
