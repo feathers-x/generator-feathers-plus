@@ -10,6 +10,7 @@
 <%- tplImports('seedData', './seed-data') %>
 <% } -%>
 <%# --- if-1 ends above. -%>
+<%- tplTsOnly(`import { App } from './app.interface'${sc}${EOL}`) -%>
 <%- insertFragment('imports') %>
 <%- insertFragment('init') %>
 
@@ -32,7 +33,7 @@ server.on('listening', async () => {
 <%# -%>
 <%# --- if-2 starts below. -%>
 <% if (specs.app.seedData) { -%>
-  await seedData(app);
+  <%- tplJsOrTs('await seedData(app);', 'await seedData(app as App);') %>
 <% } -%>
 <%# --- if-2 ends above. -%>
   <%- insertFragment('listening1') %>
