@@ -540,7 +540,6 @@ module.exports = function generatorWriting (generator, what) {
         '@types/lodash.merge',
         '@types/mocha',
         '@types/request-promise',
-        '@types/winston',
         'ts-mocha',
         'ts-node',
         'tslint',
