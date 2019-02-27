@@ -25,7 +25,10 @@
       logger.error(error)<%- sc %>
     })<%- sc %>
 
-  app.set('mongoClient', promise)<%- sc %>
+  app.set('mongoClient', promise)<%- sc %> // DEPRECATED, will be removed
+  const promisesToResolve = app.get('promisesToResolve')<%- sc %>
+  promisesToResolve.push(promise)<%- sc %>
+  app.set('promisesToResolve', promisesToResolve)<%- sc %>
   <%- insertFragment('more') %>
 }<%- tplJsOnly([sc]) %>
 <%- insertFragment('funcs') %>

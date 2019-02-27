@@ -53,6 +53,7 @@ const app = express(feathers())<%- sc %>
 
 // Load app configuration
 app.configure(configuration())<%- sc %>
+app.set('promisesToResolve', [])<%- sc %>
 <%- insertFragment('init_config', [
   `app.set('generatorSpecs', generatorSpecs)${sc}`,
 ]) %>
@@ -145,6 +146,13 @@ app.use(express.errorHandler({ logger }))<%- sc %>
 <%- insertFragment('config_end') %>
 
 app.hooks(appHooks)<%- sc %>
+
+// Wait on unresolved promisesToResolves
+(async function () {
+  const promisesToResolve = app.get('promisesToResolve')<%- sc %>
+  await promisesToResolve<%- sc %>
+  app.set('promisesToResolve', [])<%- sc %>
+}())<%- sc %>
 
 const moduleExports = app<%- sc %>
 <%- insertFragment('exports') %>
