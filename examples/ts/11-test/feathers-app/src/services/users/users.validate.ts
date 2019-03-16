@@ -105,8 +105,8 @@ let validatePatch = (options?: any) => {
 let quickValidate = (method: string, data: any, options?: any) => {
   try {
     if (method === 'create') { validateCreate(options)({ type: 'before', method: 'create', data }); }
-    if (method === 'update') { validateCreate(options)({ type: 'before', method: 'update', data }); }
-    if (method === 'patch') { validateCreate(options)({ type: 'before', method: 'patch', data }); }
+    if (method === 'update') { validateUpdate(options)({ type: 'before', method: 'update', data }); }
+    if (method === 'patch') { validatePatch(options)({ type: 'before', method: 'patch', data }); }
   } catch (err) {
     return err;
   }
