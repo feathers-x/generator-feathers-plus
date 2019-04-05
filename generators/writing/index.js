@@ -20,6 +20,7 @@ const { resources } = require('./resources');
 const serviceSpecsExpand = require('../../lib/service-specs-expand');
 const stringifyPlus = require('../../lib/stringify-plus');
 const { updateSpecs } = require('../../lib/specs');
+const generateEnumTyping = require('../../lib/generate-enum-typing');
 
 const debug = makeDebug('generator-feathers-plus:main');
 const EOL = '\n';
@@ -160,6 +161,7 @@ module.exports = function generatorWriting (generator, what) {
     this.srcPath = join(this.tpl, 'src');
     this.mwPath = join(this.srcPath, 'middleware');
     this.serPath = join(this.srcPath, 'services');
+    this.enumPath = join(this.srcPath, 'enums');
     this.namePath = join(this.serPath, 'name');
     this.qlPath = join(this.serPath, 'graphql');
     this.testPath = join(this.tpl, 'test');
@@ -198,9 +200,16 @@ module.exports = function generatorWriting (generator, what) {
 
       app(generator, props, specs, context, state);
 
+      let typescriptGlobalEnumsArr = [];
+
       Object.keys(specs.services || {}).forEach(name => {
-        service(generator, name, props, specs, context, state, inject);
+        const { typescriptEnums: enums } = service(generator, name, props, specs, context, state, inject, typescriptGlobalEnumsArr, props.generateTypeScriptEnums, props.reuseIdenticalEnums);
+        typescriptGlobalEnumsArr = typescriptGlobalEnumsArr.concat(enums);
       });
+
+      if (props.generateTypeScriptEnums && !context.isJs && typescriptGlobalEnumsArr.length > 0) {
+        generateEnumTyping(generator, specs, context, state, typescriptGlobalEnumsArr);
+      }
 
       Object.keys(specs.hooks || {}).forEach(name => {
         hook(generator, name, props, specs, context, state);

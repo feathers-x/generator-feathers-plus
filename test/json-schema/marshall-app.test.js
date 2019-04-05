@@ -1140,6 +1140,10 @@ const fakeFeathersSchemas = {
         type: 'string',
         faker: 'address.city'
       },
+      type: {
+        type: 'string',
+        enum:  [ 'photo', 'video', '360', 'content-image', 'content-markdown' ]
+      },
       slug: {
         type: 'string',
         faker: {
@@ -1564,7 +1568,7 @@ const expectedTypescriptTypes = {
     "panoId: unknown",
     "name: string",
     "description: string",
-    "type: string",
+    "type: TypeEnum",
     "content: string",
     "mediaUrl: string",
     "uploadInfo: string",
@@ -1585,7 +1589,7 @@ const expectedTypescriptTypes = {
   infoboxes: [
     "name: string",
     "description: string",
-    "type: string",
+    "type: InfoboxesTypeEnum",
     "primaryPhotoUrl: string",
     "primaryPhotoCoordinates: string",
     "primaryPhotoUploadInfo: string",
@@ -1597,20 +1601,21 @@ const expectedTypescriptTypes = {
     "meta: string"
   ],
   panoHotspots: [
-    "type: string",
+    "type: PanoHotspotsTypeEnum",
     "envPanoId: unknown",
     "panoId: unknown",
     "targetPanoId: unknown",
     "infoboxId: unknown",
     "hotspotIconId: unknown",
     "hotspotIconSize: number",
-    "linkMeta: {\n  url: string;\n  target: string\n}",
+    "linkMeta: {\n  url: string;\n  target: TargetEnum\n}",
     "percentX: number",
     "percentY: number",
     "coordinates: number[]"
   ],
   panos: [
     "name: string",
+    "type: TypeEnum",
     "slug: string",
     "imageUrl: string",
     "uploadInfo: {\n\n}",
@@ -1634,7 +1639,7 @@ const expectedTypescriptTypes = {
     "createdById: unknown"
   ],
   statViews: [
-    "type: string",
+    "type: StatViewsTypeEnum",
     "userId: unknown",
     "envId: unknown",
     "panoId: unknown",
@@ -1647,7 +1652,7 @@ const expectedTypescriptTypes = {
   tourMenuItems: [
     "text: string",
     "envId: unknown",
-    "type: string",
+    "type: TourMenuItemsTypeEnum",
     "panoId: unknown",
     "infoboxId: unknown",
     "sortOrder: number"
@@ -2340,6 +2345,16 @@ const expectedMongoJsonSchema = {
         faker: "image.imageUrl",
         bsonType: "string"
       },
+      type: {
+        bsonType: "string",
+        enum: [
+          "photo",
+          "video",
+          "360",
+          "content-image",
+          "content-markdown"
+        ]
+      },
       uploadInfo: {
         bsonType: "object",
         additionalProperties: false,
@@ -2875,6 +2890,16 @@ const expectedMongooseSchema = {
       type: String,
       required: true
     },
+    type: {
+      type: String,
+      enum: [
+        "photo",
+        "video",
+        "360",
+        "content-image",
+        "content-markdown"
+      ]
+    },
     uploadInfo: {},
     location: {
       type: {
@@ -3285,6 +3310,9 @@ const expectedSeqModel = {
     imageUrl: {
       type: sequelizeTypeEquivalences.text,
       allowNull: false
+    },
+    type: {
+      type: Sequelize.ENUM(["photo","video","360","content-image","content-markdown"])
     },
     uploadInfo: {
       type: sequelizeTypeEquivalences.jsonb

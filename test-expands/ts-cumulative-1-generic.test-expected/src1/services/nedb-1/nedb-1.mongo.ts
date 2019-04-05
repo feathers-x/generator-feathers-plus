@@ -16,6 +16,42 @@ let moduleExports = merge({},
       },
       nedb2Id: {
         bsonType: "objectId"
+      },
+      itemType: {
+        enum: [
+          "offer",
+          "bid",
+          "auction"
+        ],
+        bsonType: "string"
+      },
+      relatedItem: {
+        bsonType: "object",
+        additionalProperties: false,
+        properties: {
+          _id: {
+            bsonType: "objectId"
+          },
+          itemType: {
+            enum: [
+              "hardware",
+              "wood",
+              "toy"
+            ],
+            bsonType: "string"
+          },
+          additionalTypes: {
+            items: {
+              enum: [
+                "offer",
+                "bid",
+                "auction"
+              ],
+              type: "string"
+            },
+            bsonType: "array"
+          }
+        }
       }
     }
   },

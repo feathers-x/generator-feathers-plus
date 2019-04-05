@@ -18,6 +18,12 @@ let moduleExports = merge({},
     },
     nedb2Id: {
       type: DataTypes.INTEGER
+    },
+    itemType: {
+      type: Sequelize.ENUM(["offer","bid","auction"])
+    },
+    relatedItem: {
+      type: DataTypes.JSONB
     }
   } as DefineAttributes,
   // !end

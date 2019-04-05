@@ -45,7 +45,7 @@ module.exports = {
   service,
 };
 
-function service (generator, name, props, specs, context, state, inject) {
+function service (generator, name, props, specs, context, state, inject, typescriptGlobalEnumsArr = [], generateTypeScriptEnums = false, reuseIdenticalEnums = false) {
   debug('service()');
 
   const {
@@ -145,8 +145,8 @@ function service (generator, name, props, specs, context, state, inject) {
   validateJsonSchema(name, feathersSpecs[name]);
 
   // Custom template context.
-  const { typescriptTypes, typescriptExtends } =
-    serviceSpecsToTypescript(specsService, feathersSpecs[name], feathersSpecs[name]._extensions);
+  const { typescriptTypes, typescriptExtends, typescriptEnums, typescriptEnumsImports } =
+    serviceSpecsToTypescript(specsService, feathersSpecs[name], feathersSpecs[name]._extensions, generateTypeScriptEnums, reuseIdenticalEnums, typescriptGlobalEnumsArr);
 
   let graphqlTypeName;
   if (specs.graphql && specsService.graphql && name !== 'graphql') {
@@ -183,7 +183,10 @@ function service (generator, name, props, specs, context, state, inject) {
   context1.mongoJsonSchemaStr = stringifyPlus(context1.mongoJsonSchema);
   context1.mongooseSchemaStr = stringifyPlus(context1.mongooseSchema, { nativeFuncs: mongooseNativeFuncs });
   context1.typescriptTypesStr = typescriptTypes.map(str => `  ${str}${context1.sc}`).join(`${EOL}`);
+  context1.typescriptEnumsImportsStr = Array.from(typescriptEnumsImports).map((str, index, arr) => ` ${str}`);
   context1.typescriptExtendsStr = typescriptExtends.map(str => `  ${str}${context1.sc} // change if needed`).join(`${EOL}`);
+  context1.generateTypeScriptEnums = generateTypeScriptEnums;
+
 
   const { seqModel, seqFks } = serviceSpecsToSequelize(feathersSpecs[name], feathersSpecs[name]._extensions);
 
@@ -402,6 +405,8 @@ function service (generator, name, props, specs, context, state, inject) {
       make: hooks => `${hooks.length ? ' ' : ''}${hooks.join(', ')}${hooks.length ? ' ' : ''}`
     };
   }
+
+  return { typescriptEnums };
 }
 
 // eslint-disable-next-line no-unused-vars

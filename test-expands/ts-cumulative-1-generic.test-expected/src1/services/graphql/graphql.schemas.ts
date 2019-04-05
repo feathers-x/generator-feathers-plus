@@ -9,6 +9,8 @@ type Nedb1 {
   id: ID
   _id: ID
   nedb2Id: ID
+  itemType: String
+  relatedItem: JSON
   nedb2: Nedb2!
 }
  
@@ -16,6 +18,7 @@ type Nedb2 {
   id: ID
   _id: ID
   nedb1Id: ID
+  itemType: String
   nedb1: Nedb1!
 }
  

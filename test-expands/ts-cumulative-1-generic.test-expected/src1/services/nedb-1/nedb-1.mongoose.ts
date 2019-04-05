@@ -10,7 +10,35 @@ import mongoose from 'mongoose';
 let moduleExports = merge({},
   // !<DEFAULT> code: model
   {
-    nedb2Id: mongoose.Schema.Types.ObjectId
+    nedb2Id: mongoose.Schema.Types.ObjectId,
+    itemType: {
+      type: String,
+      enum: [
+        "offer",
+        "bid",
+        "auction"
+      ]
+    },
+    relatedItem: {
+      itemType: {
+        type: String,
+        enum: [
+          "hardware",
+          "wood",
+          "toy"
+        ]
+      },
+      additionalTypes: [
+        {
+          type: String,
+          enum: [
+            "offer",
+            "bid",
+            "auction"
+          ]
+        }
+      ]
+    }
   },
   // !end
   // !code: moduleExports // !end

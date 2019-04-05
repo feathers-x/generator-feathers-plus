@@ -28,6 +28,14 @@ let base = merge({},
       },
       nedb1Id: {
         type: ID
+      },
+      itemType: {
+        type: "string",
+        enum: [
+          "offer",
+          "bid",
+          "auction"
+        ]
       }
     }
   },

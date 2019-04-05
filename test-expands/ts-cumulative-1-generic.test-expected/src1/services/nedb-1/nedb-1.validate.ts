@@ -28,6 +28,38 @@ let base = merge({},
       },
       nedb2Id: {
         type: ID
+      },
+      itemType: {
+        type: "string",
+        enum: [
+          "offer",
+          "bid",
+          "auction"
+        ]
+      },
+      relatedItem: {
+        type: "object",
+        properties: {
+          itemType: {
+            type: "string",
+            enum: [
+              "hardware",
+              "wood",
+              "toy"
+            ]
+          },
+          additionalTypes: {
+            type: "array",
+            items: {
+              enum: [
+                "offer",
+                "bid",
+                "auction"
+              ],
+              type: "string"
+            }
+          }
+        }
       }
     }
   },

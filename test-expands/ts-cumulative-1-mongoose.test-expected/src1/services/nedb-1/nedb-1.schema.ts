@@ -25,7 +25,7 @@ let schema = {
     // !code: schema_properties
     id: { type: 'ID' },
     _id: { type: 'ID' },
-    nedb2Id: { type: 'ID' },
+    nedb2Id: { type: 'ID' }
     // !end
   },
   // !code: schema_more // !end

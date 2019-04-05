@@ -14,7 +14,7 @@ module.exports = class AllGenerator extends Generator {
   async prompting () {
     await Generator.asyncInit(this);
     initSpecs('all');
-    const { _specs: specs } = this;
+    const { props, _specs: specs } = this;
 
     this.log();
     this.log([
@@ -28,11 +28,34 @@ module.exports = class AllGenerator extends Generator {
       name: 'confirmation',
       message: 'Regenerate the entire application?',
       type: 'confirm'
+    }, {
+      name: 'generateTypeScriptEnums',
+      message: 'Generate Typescript enums?',
+      type: 'confirm',
+      default () {
+        return false;
+      },
+      when: (answers) => answers.confirmation && specs.options.ts
+    }, {
+      name: 'reuseIdenticalEnums',
+      message: 'Reuse the name of existing enums with identical values?',
+      type: 'confirm',
+      default () {
+        return false;
+      },
+      when: (answers) => answers.confirmation && answers.generateTypeScriptEnums
     }];
 
     return this.prompt(prompts)
       .then(answers => {
         if (!answers.confirmation) process.exit(0);
+
+        Object.assign(this.props, answers);
+
+        // Set missing defaults when call during test
+        if (this._opts.calledByTest && this._opts.calledByTest.prompts) {
+          this.props = Object.assign({}, this._opts.calledByTest.prompts, this. props);
+        }
       });
   }
 
