@@ -14,6 +14,7 @@ This contains primarily the responses provided to the prompts used to create the
     "inspectConflicts": false,
     "semicolons": true,
     "freeze": [],
+    "ignore": [],
     "ts": false
   },
   "app": {

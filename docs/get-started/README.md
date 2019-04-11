@@ -3015,6 +3015,11 @@ cli-plus will not overwrite any module names you add to *freeze*. For example
 "freeze": ["src/hooks/logger.js"]
 ```
 
+cli-plus will exclude any paths you add to *ignore*. For example
+```js
+"ignore": ["client/**"]
+```
+
 #### Custom code
 
 You can list all the custom code in your app using
