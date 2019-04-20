@@ -173,6 +173,8 @@ function app (generator, props, specs, context, state) {
     tmpl([tpl, 'src', 'channels.ejs'],        [src, `channels.${js}`],      WRITE_IF_NEW),
     tmpl([tpl, 'src', 'seed-data.ejs'],       [src, `seed-data.${js}`],     WRITE_ALWAYS, !specs.app.seedData),
 
+    json(pkg,           'package.json'),
+    json(configNodemon, 'nodemon.json'),
     json(configDefault, [appConfigPath, 'default.json']),
     json(configProd,    [appConfigPath, 'production.json']),
 
@@ -191,13 +193,6 @@ function app (generator, props, specs, context, state) {
     todos = todos.concat(
       copy([tpl, 'public', 'favicon.ico'],      ['public', 'favicon.ico'],    WRITE_IF_NEW),
       copy([tpl, 'public', 'index.html'],       ['public', 'index.html'],     WRITE_IF_NEW),
-    );
-  }
-
-  if (!specs.app.skipGenerateChore) {
-    todos = todos.concat(
-      json(pkg,           'package.json'),
-      json(configNodemon, 'nodemon.json'),
     );
   }
 
