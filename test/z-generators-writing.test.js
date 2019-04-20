@@ -54,6 +54,9 @@ const tests = [
   // Test when .eslintrc.json file already exists
     { testName: 'app-eslintrc.test' },
 
+  // Test skipPublic and skipGenerateChore options
+    { testName: 'app-skips.test' },
+
   // Test using feathers-gen-code.js for code
     { testName: 'app-code-blocks.test' },
 
@@ -278,7 +281,10 @@ const tests = [
   // test old and new service folder/file naming
     { testName: 'service-naming.test' }, // execute: true
 
-  // .ts version of cconst logger = require('./logger')umulative-1-nedb.test
+  // .ts version of app-skips.test
+    { testName: 'ts-app-skips.test' },
+
+  // .ts version of cumulative-1-nedb.test
     { testName: 'ts-cumulative-1-nedb.test' },
 
   // .ts version of cumulative-1-generic.test

@@ -1,0 +1,47 @@
+{
+  "overrides": {
+    "authorName": "John Szwaronek",
+    "authorEmail": "johnsz9999@gmail.com",
+    "engineNodeMajor": 8
+  },
+  "options": {
+    "ver": "1.0.0",
+    "inspectConflicts": false,
+    "semicolons": true,
+    "freeze": [],
+    "ts": true
+  },
+  "app": {
+    "name": "z-1",
+    "description": "Project z-1",
+    "src": "src1",
+    "packager": "npm@>= 3.0.0",
+    "providers": [
+      "socketio"
+    ],
+    "environmentsAllowingSeedData": "test",
+    "skipPublic": true,
+    "skipGenerateChore": true,
+    "seedData": false
+  },
+  "services": {
+    "nedb1": {
+      "name": "nedb1",
+      "nameSingular": "nedb1",
+      "subFolder": "",
+      "fileName": "nedb-1",
+      "adapter": "nedb",
+      "path": "/nedb-1",
+      "isAuthEntity": false,
+      "requiresAuth": false,
+      "graphql": true
+    }
+  },
+  "connections": {
+    "nedb": {
+      "database": "nedb",
+      "adapter": "nedb",
+      "connectionString": "../data"
+    }
+  }
+}
