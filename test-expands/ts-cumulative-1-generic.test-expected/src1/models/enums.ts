@@ -5,15 +5,15 @@
 
 // !<DEFAULT> code: enums
 export enum ItemTypeEnum {
-  offer = 'offer',
-  bid = 'bid',
-  auction = 'auction',
+  offer,
+  bid,
+  auction,
 }
 
 export enum RelatedItemItemTypeEnum {
-  hardware = 'hardware',
-  wood = 'wood',
-  toy = 'toy',
+  hardware,
+  wood,
+  toy,
 }
 // !end
 
