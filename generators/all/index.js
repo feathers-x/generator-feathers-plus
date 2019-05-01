@@ -43,6 +43,10 @@ module.exports = class AllGenerator extends Generator {
   install() {
     let { _specs: specs, dependenciesList } = this;
 
+    if (specs.app.skipGenerateChore) {
+      return;
+    }
+
     // Install all dependencies at once as that's much faster
     const packager = this.pkg.engines && this.pkg.engines.yarn ? 'yarn' : 'npm';
     const method = `${packager}Install`;
