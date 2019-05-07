@@ -47,6 +47,18 @@ let moduleExports: HooksObject = {
     remove: []
     // !end
   },
+  
+  finally: {
+    // !<DEFAULT> code: finally
+    all: [ log() ],
+    find: [],
+    get: [],
+    create: [],
+    update: [],
+    patch: [],
+    remove: []
+    // !end
+  },
   // !code: moduleExports // !end
 };
 
