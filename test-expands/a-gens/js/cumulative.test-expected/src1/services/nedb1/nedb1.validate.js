@@ -28,6 +28,9 @@ let base = merge({},
       },
       nedb2Id: {
         type: ID
+      },
+      testObject: {
+        type: "object"
       }
     }
   },
