@@ -23,9 +23,9 @@ let schema = {
   // Fields in the model.
   properties: {
     // !code: schema_properties
-    id: { type: 'ID' },
-    _id: { type: 'ID' },
-    nedb2Id: { type: 'ID' },
+    id: { type: 'ID',  description: 'Description' },
+    _id: { type: 'ID',  description: 'Description' },
+    nedb2Id: { type: 'ID', description: 'Description'},
     // !end
   },
   // !code: schema_more // !end

@@ -15,6 +15,11 @@
 let base = merge({},
 <% __jsonSchema = merge({}, feathersSpecs[serviceName]);
    delete __jsonSchema._extensions;
+   Object.keys(__jsonSchema.properties).map(prop=>{
+      if(__jsonSchema.properties[prop].description){
+        delete __jsonSchema.properties[prop].description;
+      }
+    });
    __str = stringifyPlus(__jsonSchema).replace(/"ID"/g, 'ID')
      .split('\n').map(str => `  ${str}`).join('\n');
 -%>

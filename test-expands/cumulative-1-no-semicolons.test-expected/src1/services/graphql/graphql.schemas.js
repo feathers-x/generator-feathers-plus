@@ -4,6 +4,7 @@
 // !code: init // !end
 
 let moduleExports = `
+# Nedb1 database.
 type Nedb1 {
   id: ID
   _id: ID
@@ -11,6 +12,7 @@ type Nedb1 {
   nedb2: Nedb2!
 }
  
+# Nedb2 database.
 type Nedb2 {
   id: ID
   _id: ID
