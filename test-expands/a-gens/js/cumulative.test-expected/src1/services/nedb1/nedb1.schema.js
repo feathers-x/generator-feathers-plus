@@ -26,7 +26,7 @@ let schema = {
     id: { type: 'ID',  description: 'Description' },
     _id: { type: 'ID',  description: 'Description' },
     nedb2Id: { type: 'ID', description: 'Description' },
-    testObject: { type: 'object', description: 'Description'}
+    testObject: { type: 'object', description: 'Description' }
     // !end
   },
   // !code: schema_more // !end

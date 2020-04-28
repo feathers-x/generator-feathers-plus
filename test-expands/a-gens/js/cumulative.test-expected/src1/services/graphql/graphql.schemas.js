@@ -12,8 +12,8 @@ type Nedb1 {
   _id: ID
   # Description
   nedb2Id: ID
+  # Description
   testObject: JSON
-  nedb2: Nedb2!
 }
  
 # Nedb2 database.
