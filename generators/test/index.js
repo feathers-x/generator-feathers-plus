@@ -83,10 +83,10 @@ module.exports = class CodelistGenerator extends Generator {
         generator.log([
           chalk.yellow.bold('tests.client'),
           chalk.green.bold('. '),
-          chalk.green.bold('The client/server tests use them, you may also.'),
+          chalk.green.bold('The client/server tests use them, you may also.')
         ].join(''));
         generator.log([
-          chalk.green.bold('You may customize this config as necessary.'),
+          chalk.green.bold('You may customize this config as necessary.')
         ].join(''));
         generator.log('');
       }
@@ -100,15 +100,15 @@ module.exports = class CodelistGenerator extends Generator {
             chalk.yellow.bold('NODE_ENV'),
             chalk.green.bold(' is '),
             chalk.yellow.bold(environmentsAllowingSeedData),
-            chalk.green.bold('.'),
+            chalk.green.bold('.')
           ].join(''));
         } else {
           generator.log([
-            chalk.green.bold('This test will not run until a test environment is set using '),
+            chalk.green.bold('This test will not run until a test environment is set using ')
           ].join(''));
           generator.log([
             chalk.yellow.bold('generate app'),
-            chalk.green.bold('.'),
+            chalk.green.bold('.')
           ].join(''));
         }
 
@@ -147,7 +147,7 @@ module.exports = class CodelistGenerator extends Generator {
 
       // Set missing defaults when call during test
       if (this._opts.calledByTest && this._opts.calledByTest.prompts) {
-        this.props = Object.assign({}, this._opts.calledByTest.prompts, this. props);
+        this.props = Object.assign({}, this._opts.calledByTest.prompts, this.props);
       }
 
       debug('test prompting() ends', this.props);

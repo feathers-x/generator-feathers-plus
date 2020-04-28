@@ -23,9 +23,9 @@ module.exports = class CodelistGenerator extends Generator {
     this.log([
       chalk.green.bold('The custom code found in generated modules in dir '),
       chalk.yellow.bold(parse(cwd()).base),
-      ':',
+      ':'
     ].join(''));
-    
+
     Object.keys(code).forEach(filePath => {
       const codeFilePath = code[filePath];
       this.log();

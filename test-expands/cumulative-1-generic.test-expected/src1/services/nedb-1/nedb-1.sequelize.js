@@ -18,6 +18,12 @@ let moduleExports = merge({},
     },
     nedb2Id: {
       type: DataTypes.INTEGER
+    },
+    testObject: {
+      type: DataTypes.JSONB
+    },
+    testString: {
+      type: DataTypes.TEXT
     }
   },
   // !end

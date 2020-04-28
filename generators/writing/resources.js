@@ -6,7 +6,7 @@ const { generatorFs } = require('../../lib/generator-fs');
 const debug = makeDebug('generator-feathers-plus:writing:resources');
 
 module.exports = {
-  resources,
+  resources
 };
 
 function resources (generator, props, specs, context, state) {
@@ -41,11 +41,11 @@ function resources (generator, props, specs, context, state) {
 
   const {
     // File writing functions.
-    source,
+    source
   } = state;
 
-  if (!specs.requiredCustomResources || !specs.requiredCustomResources.files
-    || !specs.requiredCustomResources.files.text) { return; }
+  if (!specs.requiredCustomResources || !specs.requiredCustomResources.files ||
+    !specs.requiredCustomResources.files.text) { return; }
 
   const getFragmenter = getFragment(process.cwd() + '/requiredCustomResources');
   const text = specs.requiredCustomResources.files.text;
@@ -56,7 +56,7 @@ function resources (generator, props, specs, context, state) {
   textPaths.forEach(textPath => {
     const code = getFragmenter(textPath) || '';
     todos.push(
-      source(code, textPath, true),
+      source(code, textPath, true)
     );
   });
 

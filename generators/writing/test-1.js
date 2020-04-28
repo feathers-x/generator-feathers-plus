@@ -6,7 +6,7 @@ const { generatorFs } = require('../../lib/generator-fs');
 const debug = makeDebug('generator-feathers-plus:writing:test');
 
 module.exports = {
-  test,
+  test
 };
 
 function test (generator, props, specs, context, state) {
@@ -42,7 +42,7 @@ function test (generator, props, specs, context, state) {
     src,
     testPath,
     // Constants.
-    WRITE_IF_NEW,
+    WRITE_IF_NEW
   } = state;
 
   // props = {
@@ -54,7 +54,7 @@ function test (generator, props, specs, context, state) {
 
   if (testType === 'authBase') {
     todos = [
-      tmpl([testPath, 'authentication.base.test.ejs'],  ['test', `authentication.base.test.${js}`])
+      tmpl([testPath, 'authentication.base.test.ejs'], ['test', `authentication.base.test.${js}`])
     ];
 
     writeDefaultJsonClient(generator, context);
@@ -62,7 +62,7 @@ function test (generator, props, specs, context, state) {
 
   if (testType === 'authServices') {
     todos = [
-      tmpl([testPath, 'authentication.services.test.ejs'],  ['test', `authentication.services.test.${js}`])
+      tmpl([testPath, 'authentication.services.test.ejs'], ['test', `authentication.services.test.${js}`])
     ];
 
     writeDefaultJsonClient(generator, context);
@@ -127,19 +127,19 @@ function test (generator, props, specs, context, state) {
       pathTestToHook,
       pathTestToApp,
       userEntity: specs.authentication ? specs.authentication.entity : null,
-      serviceFileName: `${hookSpec.ifMulti !== 'y' ? sn1 : ''}/hooks/`,
+      serviceFileName: `${hookSpec.ifMulti !== 'y' ? sn1 : ''}/hooks/`
     });
 
     todos = [
-      tmpl([testPath, 'hooks', 'hook.unit.test.ejs'],  ['test', `${pathToTest}.${js}`], WRITE_IF_NEW, testType !== 'hookUnit'),
-      tmpl([testPath, 'hooks', 'hook.integ.test.ejs'], ['test', `${pathToTest}.${js}`], WRITE_IF_NEW, testType === 'hookUnit'),
+      tmpl([testPath, 'hooks', 'hook.unit.test.ejs'], ['test', `${pathToTest}.${js}`], WRITE_IF_NEW, testType !== 'hookUnit'),
+      tmpl([testPath, 'hooks', 'hook.integ.test.ejs'], ['test', `${pathToTest}.${js}`], WRITE_IF_NEW, testType === 'hookUnit')
     ];
 
     if (testType === 'hookInteg') {
       generator._packagerInstall(isJs ? [
         '@feathers-plus/test-utils'
       ] : [
-        //'@types/???',
+        // '@types/???',
         '@feathers-plus/test-utils'
       ], { save: true }); // because seeding DBs also uses it
     }
@@ -164,18 +164,18 @@ function test (generator, props, specs, context, state) {
       servicePath: serviceSpec.path,
       stt,
       pathToTest,
-      pathTestToApp,
+      pathTestToApp
     });
 
     todos = [
       tmpl([testPath, 'services', 'name', 'service.server.test.ejs'], ['test', pathToTest], WRITE_IF_NEW, testType !== 'serviceUnit'),
-      tmpl([testPath, 'services', 'name', 'service.client.test.ejs'], ['test', pathToTest], WRITE_IF_NEW, testType === 'serviceUnit'),
+      tmpl([testPath, 'services', 'name', 'service.client.test.ejs'], ['test', pathToTest], WRITE_IF_NEW, testType === 'serviceUnit')
     ];
 
     generator._packagerInstall(isJs ? [
       '@feathers-plus/test-utils'
     ] : [
-      //'@types/???',
+      // '@types/???',
       '@feathers-plus/test-utils'
     ], { save: true }); // because seeding DBs also uses it
   }
@@ -216,7 +216,7 @@ function writeDefaultJsonClient (generator, context) {
 }
 
 // eslint-disable-next-line no-unused-vars
-function inspector(desc, obj, depth = 6) {
+function inspector (desc, obj, depth = 6) {
   console.log(desc);
   console.log(inspect(obj, { colors: true, depth }));
 }

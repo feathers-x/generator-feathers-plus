@@ -8,7 +8,6 @@ const DataTypes = Sequelize.DataTypes;
 
 describe('sequelizer.test', () => {
   it('converts json-schema', () => {
-
     const schema = {
       // !<DEFAULT> code: schema_header
       title: 'Xxx',
@@ -40,7 +39,7 @@ describe('sequelizer.test', () => {
         password: { type: 'string', chance: { hash: {length: 60}}},
         roleId: {type: 'string', faker: {fk: 'roles: random'}}
         // !end
-      },
+      }
       // !code: schema_more // !end
     };
 
@@ -48,38 +47,38 @@ describe('sequelizer.test', () => {
       id: {
         type: DataTypes.TEXT,
         unique: false,
-        allowNull: true,
+        allowNull: true
       },
       email: {
         type: DataTypes.TEXT,
         unique: true,
-        allowNull: false,
+        allowNull: false
       },
       firstName: {
         type: DataTypes.STRING,
         unique: false,
-        allowNull: true,
+        allowNull: true
       },
       lastName: {
         type: DataTypes.STRING,
         unique: false,
-        allowNull: true,
+        allowNull: true
       },
       password: {
         type: DataTypes.TEXT,
         unique: false,
-        allowNull: false,
+        allowNull: false
       },
       roleId: {
         type: DataTypes.TEXT,
         unique: false,
-        allowNull: true,
+        allowNull: true
       }
     };
 
     const actualModel = Sequelizer.fromJsonSchema(schema, null, {
       notNullFields: schema.required || [],
-      uniqueFields: schema.uniqueItemProperties || [],
+      uniqueFields: schema.uniqueItemProperties || []
     });
 
     assert.deepEqual(actualModel, expectedModel);
@@ -91,21 +90,21 @@ describe('sequelizer.test', () => {
       properties: {
         xx: {
           type: 'array',
-          items: { type: 'string' } },
-      },
+          items: { type: 'string' } }
+      }
     };
 
     const expectedModel = {
       xx: {
         type: DataTypes.JSONB,
         unique: false,
-        allowNull: true,
-      },
+        allowNull: true
+      }
     };
 
     const actualModel = Sequelizer.fromJsonSchema(schema, null, {
       notNullFields: schema.required || [],
-      uniqueFields: schema.uniqueItemProperties || [],
+      uniqueFields: schema.uniqueItemProperties || []
     });
 
     assert.deepEqual(actualModel, expectedModel);
@@ -120,21 +119,21 @@ describe('sequelizer.test', () => {
           properties: {
             yy: { type: 'string' }
           }
-        },
-      },
+        }
+      }
     };
 
     const expectedModel = {
       xx: {
         type: DataTypes.JSONB,
         unique: false,
-        allowNull: true,
-      },
+        allowNull: true
+      }
     };
 
     const actualModel = Sequelizer.fromJsonSchema(schema, null, {
       notNullFields: schema.required || [],
-      uniqueFields: schema.uniqueItemProperties || [],
+      uniqueFields: schema.uniqueItemProperties || []
     });
 
     assert.deepEqual(actualModel, expectedModel);

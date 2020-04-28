@@ -138,7 +138,7 @@ module.exports = class AppGenerator extends Generator {
         }
 
         return true;
-      },
+      }
     }, {
       name: 'environmentsAllowingSeedData',
       message: 'Data mutating tests and seeding may run when NODE_ENV is one of (optional)',
@@ -154,7 +154,7 @@ module.exports = class AppGenerator extends Generator {
       when: answers => !!answers.environmentsAllowingSeedData,
       default () {
         return !!specs.app.seedData;
-      },
+      }
     }];
 
     debug('start prompts');
@@ -167,7 +167,7 @@ module.exports = class AppGenerator extends Generator {
 
         // Set missing defaults when call during test
         if (this._opts.calledByTest && this._opts.calledByTest.prompts) {
-          this.props = Object.assign({}, this._opts.calledByTest.prompts, this. props);
+          this.props = Object.assign({}, this._opts.calledByTest.prompts, this.props);
         }
 
         debug('app prompting() ends', this.props);

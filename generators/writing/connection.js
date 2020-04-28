@@ -6,7 +6,7 @@ const { generatorFs } = require('../../lib/generator-fs');
 const debug = makeDebug('generator-feathers-plus:writing:connection');
 
 module.exports = {
-  connection,
+  connection
 };
 
 function connection (generator, props, specs, context, state) {
@@ -18,7 +18,7 @@ function connection (generator, props, specs, context, state) {
     appConfigPath,
     // TypeScript & semicolon helpers.
     js,
-    isJs,
+    isJs
   } = context;
 
   const {
@@ -34,7 +34,7 @@ function connection (generator, props, specs, context, state) {
     // Utilities.
     generatorsInclude,
     // Constants
-    WRITE_ALWAYS,
+    WRITE_ALWAYS
   } = state;
 
   // Common abbreviations for building 'todos'.
@@ -44,9 +44,9 @@ function connection (generator, props, specs, context, state) {
   const isGenerateConnection = generatorsInclude('connection') && !generatorsInclude('service');
 
   const todos = !Object.keys(connections).length ? [] : [
-    json(newConfig,                     [appConfigPath, 'default.json']                    ),
-    tmpl([srcPath, 'app.ejs'],          [libDir, `app.${js}`]                              ),
-    tmpl([tpl, 'src', 'typings.d.ejs'], [src, 'typings.d.ts'],           WRITE_ALWAYS, isJs),
+    json(newConfig, [appConfigPath, 'default.json']),
+    tmpl([srcPath, 'app.ejs'], [libDir, `app.${js}`]),
+    tmpl([tpl, 'src', 'typings.d.ejs'], [src, 'typings.d.ts'], WRITE_ALWAYS, isJs)
   ];
 
   Object.keys(_adapters).sort().forEach(adapter => {
@@ -60,7 +60,7 @@ function connection (generator, props, specs, context, state) {
         tmpl(
           [srcPath, '_adapters', _adapters[adapter]],
           [libDir, `${adapter}.${js}`],
-          !forceWrite, false, { database: connections[connectionsAdapter].database } )
+          !forceWrite, false, { database: connections[connectionsAdapter].database })
       );
     }
   });
@@ -77,7 +77,7 @@ function connection (generator, props, specs, context, state) {
 }
 
 // eslint-disable-next-line no-unused-vars
-function inspector(desc, obj, depth = 6) {
+function inspector (desc, obj, depth = 6) {
   console.log(desc);
   console.log(inspect(obj, { colors: true, depth }));
 }

@@ -26,7 +26,7 @@ module.exports = class CodelistGenerator extends Generator {
     const prompts = [{
       name: 'name',
       message: 'What is the name of the hook?',
-      filter(input) {
+      filter (input) {
         return generator.makeFileName(input);
       },
       validate (input) {
@@ -59,14 +59,13 @@ module.exports = class CodelistGenerator extends Generator {
           ].join(''));
         }
 
-
         return true;
-      },
+      }
     }, {
       name: 'ifMulti',
       message: 'The hook will be used with',
       type: 'list',
-      choices() {
+      choices () {
         return [
           {
             name: ` Multiple services (${srcFolder}/hooks/)`,
@@ -77,9 +76,9 @@ module.exports = class CodelistGenerator extends Generator {
           }
         ];
       },
-      default() {
+      default () {
         return hookSpecs.ifMulti || 'n';
-      },
+      }
     }, {
       name: 'multiServices',
       message: 'Which services will this hook be used with?\n',
@@ -107,7 +106,7 @@ module.exports = class CodelistGenerator extends Generator {
         }
 
         return true;
-      },
+      }
     }, {
       name: 'singleService',
       message: 'Which service will this hook be used with?',
@@ -116,7 +115,7 @@ module.exports = class CodelistGenerator extends Generator {
       choices: serviceChoices,
       default () {
         return hookSpecs.singleService || (serviceChoices[0] ? serviceChoices[0].value : '');
-      },
+      }
     }];
 
     return this.prompt(prompts).then(answers => {
@@ -124,7 +123,7 @@ module.exports = class CodelistGenerator extends Generator {
 
       // Set missing defaults when call during test
       if (this._opts.calledByTest && this._opts.calledByTest.prompts) {
-        this.props = Object.assign({}, this._opts.calledByTest.prompts, this. props);
+        this.props = Object.assign({}, this._opts.calledByTest.prompts, this.props);
       }
 
       debug('hook prompting() ends', this.props);

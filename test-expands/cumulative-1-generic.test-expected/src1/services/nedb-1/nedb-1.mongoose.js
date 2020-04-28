@@ -10,7 +10,9 @@ const mongoose = require('mongoose');
 let moduleExports = merge({},
   // !<DEFAULT> code: model
   {
-    nedb2Id: mongoose.Schema.Types.ObjectId
+    nedb2Id: mongoose.Schema.Types.ObjectId,
+    testObject: {},
+    testString: String
   },
   // !end
   // !code: moduleExports // !end

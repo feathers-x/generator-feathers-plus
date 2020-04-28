@@ -27,13 +27,13 @@ module.exports = class FakesGenerator extends Generator {
       this.log([
         chalk.green.bold('We are generating fake service data for the first time in dir '),
         chalk.yellow.bold(parse(cwd()).base),
-        chalk.green.bold('.'),
+        chalk.green.bold('.')
       ].join(''));
       this.log();
       this.log([
         chalk.green.bold('The configuration controlling the faking resides in '),
         chalk.yellow.bold('config/default.js'),
-        chalk.green.bold('.'),
+        chalk.green.bold('.')
       ].join(''));
       this.log(
         chalk.green.bold('You can change this configuration and rerun "feathers-plus generate fakes".')
@@ -43,7 +43,7 @@ module.exports = class FakesGenerator extends Generator {
       this.log();
       this.log([
         chalk.green.bold('We are regenerating the existing fake service data in dir '),
-        chalk.yellow.bold(parse(cwd()).base),
+        chalk.yellow.bold(parse(cwd()).base)
       ].join(''));
       this.log();
     }

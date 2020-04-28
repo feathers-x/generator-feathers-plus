@@ -205,8 +205,8 @@ module.exports = class ServiceGenerator extends Generator {
         const rawPath = answers.name || props.name;
         const pathName = generator.makeFilePath(rawPath);
 
-        return defaultSubFolder !== answers.subFolder ?
-          `/${pathName}` : (serviceSpecs.path || `/${pathName}`);
+        return defaultSubFolder !== answers.subFolder
+          ? `/${pathName}` : (serviceSpecs.path || `/${pathName}`);
       },
       filter (input) {
         return generator.makeFilePath(input);
@@ -242,7 +242,7 @@ module.exports = class ServiceGenerator extends Generator {
 
       // Set missing defaults when call during test
       if (this._opts.calledByTest && this._opts.calledByTest.prompts) {
-        this.props = Object.assign({}, this._opts.calledByTest.prompts, this. props);
+        this.props = Object.assign({}, this._opts.calledByTest.prompts, this.props);
       }
 
       debug('service prompting() ends', this.props);

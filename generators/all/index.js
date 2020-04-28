@@ -20,7 +20,7 @@ module.exports = class AllGenerator extends Generator {
     this.log([
       chalk.green.bold('Regenerate the entire app in dir '),
       chalk.yellow.bold(parse(cwd()).base),
-      chalk.green.bold(` in ${specs.options.ts ? 'TypeScript' : 'JavaScript'}`),
+      chalk.green.bold(` in ${specs.options.ts ? 'TypeScript' : 'JavaScript'}`)
     ].join(''));
     this.log();
 
@@ -40,7 +40,7 @@ module.exports = class AllGenerator extends Generator {
     generatorWriting(this, 'all');
   }
 
-  install() {
+  install () {
     let { _specs: specs, dependenciesList } = this;
 
     // Install all dependencies at once as that's much faster

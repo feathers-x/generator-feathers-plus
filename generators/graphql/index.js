@@ -77,8 +77,8 @@ module.exports = class GraphqlGenerator extends Generator {
       type: 'list',
       name: 'sqlInterface',
       message: 'What SQL interface do you want to use?',
-      default: 'sequelize', //graphqlSpecs.sqlInterface,
-      when(answers) {
+      default: 'sequelize', // graphqlSpecs.sqlInterface,
+      when (answers) {
         return answers.strategy === 'sql';
       },
       choices: [{
@@ -108,7 +108,7 @@ module.exports = class GraphqlGenerator extends Generator {
       name: 'doNotConfigure',
       message: 'Will you be using only the fgraphql hook, not the service?',
       type: 'confirm',
-      default: graphqlSpecs.doNotConfigure,
+      default: graphqlSpecs.doNotConfigure
     }];
 
     return this.prompt(prompts)
@@ -122,7 +122,7 @@ module.exports = class GraphqlGenerator extends Generator {
 
         // Set missing defaults when call during test
         if (this._opts.calledByTest && this._opts.calledByTest.prompts) {
-          this.props = Object.assign({}, this._opts.calledByTest.prompts, this. props);
+          this.props = Object.assign({}, this._opts.calledByTest.prompts, this.props);
         }
 
         debug('graphql prompting() ends', this.props);

@@ -6,7 +6,7 @@ const { generatorFs } = require('../../lib/generator-fs');
 const debug = makeDebug('generator-feathers-plus:writing:middleware');
 
 module.exports = {
-  middleware,
+  middleware
 };
 
 function middleware (generator, props, specs, context, state) {
@@ -52,7 +52,7 @@ function middleware (generator, props, specs, context, state) {
     // Constants.
     WRITE_IF_NEW,
     WRITE_ALWAYS,
-    DONT_SKIP_WRITE,
+    DONT_SKIP_WRITE
   } = state;
 
   const todos = [
@@ -63,7 +63,7 @@ function middleware (generator, props, specs, context, state) {
     const fileName = specs.middlewares[mwName].kebab;
     todos.push(
       tmpl([mwPath, 'middleware.ejs'], [libDir, 'middleware', `${fileName}.${js}`], WRITE_IF_NEW, DONT_SKIP_WRITE, { mwName }),
-      tmpl([tpl, 'src', 'typings.d.ejs'],     [src, 'typings.d.ts'],                WRITE_ALWAYS, isJs),
+      tmpl([tpl, 'src', 'typings.d.ejs'], [src, 'typings.d.ts'], WRITE_ALWAYS, isJs)
     );
   });
 
@@ -72,7 +72,7 @@ function middleware (generator, props, specs, context, state) {
 }
 
 // eslint-disable-next-line no-unused-vars
-function inspector(desc, obj, depth = 6) {
+function inspector (desc, obj, depth = 6) {
   console.log(desc);
   console.log(inspect(obj, { colors: true, depth }));
 }

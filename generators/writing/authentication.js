@@ -18,11 +18,11 @@ const AUTH_TYPES = {
   auth0: '@types/feathersjs__authentication-oauth2',
   google: '@types/feathersjs__authentication-oauth2',
   facebook: ['@types/passport-facebook', '@types/feathersjs__authentication-oauth2'],
-  github: '@types/passport-github',
+  github: '@types/passport-github'
 };
 
 module.exports = {
-  authentication,
+  authentication
 };
 
 function authentication (generator, justRegen, props, specs, context, state) {
@@ -35,7 +35,7 @@ function authentication (generator, justRegen, props, specs, context, state) {
     isJs,
     // lodash utilities.
     camelCase,
-    upperFirst,
+    upperFirst
   } = context;
 
   const {
@@ -45,7 +45,7 @@ function authentication (generator, justRegen, props, specs, context, state) {
     src,
     srcPath,
     // Other abbreviations using in building 'todos'.
-    libDir,
+    libDir
   } = state;
 
   const entity = specs.authentication.entity;
@@ -72,7 +72,7 @@ function authentication (generator, justRegen, props, specs, context, state) {
 
   let devDependencies = isJs ? [] : [
     '@types/feathersjs__authentication',
-    '@types/feathersjs__authentication-jwt',
+    '@types/feathersjs__authentication-jwt'
   ];
 
   // Set up strategies and add dependencies
@@ -87,7 +87,6 @@ function authentication (generator, justRegen, props, specs, context, state) {
         strategyName: `${upperFirst(strategy)}Strategy`,
         module: oauthProvider
       });
-
     } else {
       dependencies.push(`@feathersjs/authentication-${strategy}`); // usually `local`
     }
@@ -104,7 +103,7 @@ function authentication (generator, justRegen, props, specs, context, state) {
 
   const todos = [
     tmpl([srcPath, 'authentication.ejs'], [libDir, `authentication.${js}`]),
-    tmpl([srcPath, 'app.ejs'], [src, `app.${js}`]),
+    tmpl([srcPath, 'app.ejs'], [src, `app.${js}`])
     // todo tmpl([tpl, 'test', 'auth-local.test.ejs'], [testDir, `auth-local.test.${js}`]),
   ];
 
@@ -127,7 +126,7 @@ function writeAuthenticationConfiguration (generator, context1) {
     : (configAuth.secret || crypto.randomBytes(256).toString('hex'));
   configAuth.strategies = [ 'jwt' ];
   configAuth.path = '/authentication';
-  configAuth.service = path.substring(0,1) !== '/' ? path : context1.servicePath.substring(1);
+  configAuth.service = path.substring(0, 1) !== '/' ? path : context1.servicePath.substring(1);
 
   configAuth.jwt = configAuth.jwt || {
     header: { typ: 'access' },
@@ -194,7 +193,7 @@ function writeAuthenticationConfiguration (generator, context1) {
 }
 
 // eslint-disable-next-line no-unused-vars
-function inspector(desc, obj, depth = 6) {
+function inspector (desc, obj, depth = 6) {
   console.log(desc);
   console.log(inspect(obj, { colors: true, depth }));
 }

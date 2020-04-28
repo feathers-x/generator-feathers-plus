@@ -8,7 +8,7 @@ const { generatorFs } = require('../../lib/generator-fs');
 const debug = makeDebug('generator-feathers-plus:writing:app');
 
 module.exports = {
-  app,
+  app
 };
 
 function app (generator, props, specs, context, state) {
@@ -19,7 +19,7 @@ function app (generator, props, specs, context, state) {
     appConfigPath,
     // TypeScript & semicolon helpers.
     js,
-    isJs,
+    isJs
   } = context;
 
   const {
@@ -37,7 +37,7 @@ function app (generator, props, specs, context, state) {
     testDir,
     // Constants.
     WRITE_IF_NEW,
-    WRITE_ALWAYS,
+    WRITE_ALWAYS
   } = state;
 
   let todos;
@@ -67,11 +67,11 @@ function app (generator, props, specs, context, state) {
   configDefault.tests = configDefault.tests || {};
   configDefault.tests.environmentsAllowingSeedData =
     specs.app.environmentsAllowingSeedData.split(',');
-  pkg.scripts['test:all'] = pkg.scripts['test:all'] || (isJs ?
-      `${testAllJsFront}${testAllJsBack}` : `${testAllTsFront}${testAllTsBack}`
+  pkg.scripts['test:all'] = pkg.scripts['test:all'] || (isJs
+    ? `${testAllJsFront}${testAllJsBack}` : `${testAllTsFront}${testAllTsBack}`
   );
-  pkg.scripts['start:seed'] = pkg.scripts['start:seed'] || (isJs ?
-      `${startSeedFront}${startSeedJsBack}` : `${startSeedFront}${startSeedTsBack}`
+  pkg.scripts['start:seed'] = pkg.scripts['start:seed'] || (isJs
+    ? `${startSeedFront}${startSeedJsBack}` : `${startSeedFront}${startSeedTsBack}`
   );
 
   const configNodemon = generator.fs.readJSON(
@@ -97,8 +97,8 @@ function app (generator, props, specs, context, state) {
   back = isJs ? startSeedJsBack : startSeedTsBack;
 
   if (
-    startSeed.substr(0, startSeedFront.length) === startSeedFront
-    && startSeed.substr(-back.length) === back
+    startSeed.substr(0, startSeedFront.length) === startSeedFront &&
+    startSeed.substr(-back.length) === back
   ) {
     pkg.scripts['start:seed'] = `${startSeedFront}${firstTestEnv}${back}`;
   }
@@ -129,7 +129,6 @@ function app (generator, props, specs, context, state) {
   const tsRules = tslintjson.rules = tslintjson.rules || {};
   const tsRulesSemi = tsRules.semicolon;
 
-
   if (context.sc) {
     // semicolons used
     if (!Array.isArray(rulesSemi) || rulesSemi[0] !== 'error') {
@@ -155,41 +154,41 @@ function app (generator, props, specs, context, state) {
   // Custom template context.
   context = Object.assign({}, context, {
     getNameSpace: generator.getNameSpace,
-    _hooks: specs._hooks['*app'] || [],
+    _hooks: specs._hooks['*app'] || []
   });
 
   // Modules to generate
   todos = [
     copy([tpl, '_editorconfig'], '.editorconfig', WRITE_IF_NEW),
     // This name hack is necessary because NPM does not publish `.gitignore` files
-    copy([tpl, '_gitignore'],    '.gitignore', WRITE_IF_NEW),
-    copy([tpl, 'LICENSE'],       'LICENSE', WRITE_IF_NEW),
+    copy([tpl, '_gitignore'], '.gitignore', WRITE_IF_NEW),
+    copy([tpl, 'LICENSE'], 'LICENSE', WRITE_IF_NEW),
     tmpl([tpl, 'README.md.ejs'], 'README.md', WRITE_IF_NEW),
 
-    copy([tpl, 'public', 'favicon.ico'],      ['public', 'favicon.ico'],    WRITE_IF_NEW),
-    copy([tpl, 'public', 'index.html'],       ['public', 'index.html'],     WRITE_IF_NEW),
+    copy([tpl, 'public', 'favicon.ico'], ['public', 'favicon.ico'], WRITE_IF_NEW),
+    copy([tpl, 'public', 'index.html'], ['public', 'index.html'], WRITE_IF_NEW),
 
-    tmpl([tpl, 'test', 'app.test.ejs'],       [testDir, `app.test.${js}`],  WRITE_IF_NEW),
+    tmpl([tpl, 'test', 'app.test.ejs'], [testDir, `app.test.${js}`], WRITE_IF_NEW),
 
-    tmpl([tpl, 'src', 'hooks', 'log.ejs'],    [src, 'hooks', `log.${js}`]),
+    tmpl([tpl, 'src', 'hooks', 'log.ejs'], [src, 'hooks', `log.${js}`]),
     copy([tpl, 'src', 'refs', 'common.json'], [src, 'refs', 'common.json'], WRITE_IF_NEW),
-    tmpl([tpl, 'src', 'channels.ejs'],        [src, `channels.${js}`],      WRITE_IF_NEW),
-    tmpl([tpl, 'src', 'seed-data.ejs'],       [src, `seed-data.${js}`],     WRITE_ALWAYS, !specs.app.seedData),
+    tmpl([tpl, 'src', 'channels.ejs'], [src, `channels.${js}`], WRITE_IF_NEW),
+    tmpl([tpl, 'src', 'seed-data.ejs'], [src, `seed-data.${js}`], WRITE_ALWAYS, !specs.app.seedData),
 
-    json(pkg,           'package.json'),
+    json(pkg, 'package.json'),
     json(configNodemon, 'nodemon.json'),
     json(configDefault, [appConfigPath, 'default.json']),
-    json(configProd,    [appConfigPath, 'production.json']),
+    json(configProd, [appConfigPath, 'production.json']),
 
-    tmpl([tpl, 'src', 'index.ejs'],     [src, `index.${js}`]),
+    tmpl([tpl, 'src', 'index.ejs'], [src, `index.${js}`]),
     tmpl([tpl, 'src', 'app.hooks.ejs'], [src, `app.hooks.${js}`]),
-    tmpl([tpl, 'src', 'logger.ejs'],    [src, `logger.${js}`]),
+    tmpl([tpl, 'src', 'logger.ejs'], [src, `logger.${js}`]),
 
-    tmpl([mwPath, 'index.ejs'],             [src, 'middleware', `index.${js}`]            ),
-    tmpl([srcPath, 'app.ejs'],              [src, `app.${js}`]                            ),
-    tmpl([serPath, 'index.ejs'],            [src, 'services', `index.${js}`]              ),
-    tmpl([tpl, 'src', 'app.interface.ejs'], [src, 'app.interface.ts'],         WRITE_ALWAYS, isJs),
-    tmpl([tpl, 'src', 'typings.d.ejs'],     [src, 'typings.d.ts'],             WRITE_ALWAYS, isJs),
+    tmpl([mwPath, 'index.ejs'], [src, 'middleware', `index.${js}`]),
+    tmpl([srcPath, 'app.ejs'], [src, `app.${js}`]),
+    tmpl([serPath, 'index.ejs'], [src, 'services', `index.${js}`]),
+    tmpl([tpl, 'src', 'app.interface.ejs'], [src, 'app.interface.ts'], WRITE_ALWAYS, isJs),
+    tmpl([tpl, 'src', 'typings.d.ejs'], [src, 'typings.d.ts'], WRITE_ALWAYS, isJs)
   ];
 
   // generate name.json files for test environments
@@ -205,19 +204,19 @@ function app (generator, props, specs, context, state) {
     });
 
     todos.push(
-      json(configTest,    [appConfigPath, `${envName}.json`], WRITE_ALWAYS, !envName),
+      json(configTest, [appConfigPath, `${envName}.json`], WRITE_ALWAYS, !envName)
     );
   });
 
   if (isJs) {
     todos = todos.concat(
-      json(eslintrc, '.eslintrc.json', WRITE_ALWAYS, eslintrcExists && !eslintrcChanged),
+      json(eslintrc, '.eslintrc.json', WRITE_ALWAYS, eslintrcExists && !eslintrcChanged)
     );
   } else {
     todos = todos.concat(
       json(tslintjson, 'tslint.json', WRITE_ALWAYS, tslintExists && !tslintJsonChanged),
       tmpl([tpl, 'tsconfig.json'], 'tsconfig.json', WRITE_IF_NEW),
-      copy([tpl, 'tsconfig.test.json'], 'tsconfig.test.json', WRITE_IF_NEW),
+      copy([tpl, 'tsconfig.test.json'], 'tsconfig.test.json', WRITE_IF_NEW)
     );
   }
 
@@ -237,7 +236,7 @@ function app (generator, props, specs, context, state) {
     'lodash.merge',
     'serve-favicon',
     'winston',
-    'cross-env',
+    'cross-env'
   ];
 
   generator.devDependencies = [
@@ -249,7 +248,7 @@ function app (generator, props, specs, context, state) {
 
   if (isJs) {
     generator.devDependencies = generator.devDependencies.concat([
-      'eslint',
+      'eslint'
     ]);
   } else {
     generator.devDependencies = generator.devDependencies.concat([
@@ -262,7 +261,7 @@ function app (generator, props, specs, context, state) {
       'ts-mocha',
       'ts-node',
       'tslint',
-      'typescript',
+      'typescript'
     ]);
 
     if (specs.app.providers.indexOf('rest') !== -1) {
@@ -271,7 +270,7 @@ function app (generator, props, specs, context, state) {
         '@types/compression',
         '@types/cors',
         '@types/helmet',
-        '@types/serve-favicon',
+        '@types/serve-favicon'
       ]);
     }
 
@@ -293,7 +292,7 @@ function app (generator, props, specs, context, state) {
   if (specs.app.seedData) {
     generator.dependencies.push('@feathers-plus/test-utils');
     if (!isJs) {
-      //generator.dependencies.push('@types/???');
+      // generator.dependencies.push('@types/???');
     }
   }
 
@@ -317,7 +316,7 @@ function app (generator, props, specs, context, state) {
 }
 
 // eslint-disable-next-line no-unused-vars
-function inspector(desc, obj, depth = 6) {
+function inspector (desc, obj, depth = 6) {
   console.log(desc);
   console.log(inspect(obj, { colors: true, depth }));
 }

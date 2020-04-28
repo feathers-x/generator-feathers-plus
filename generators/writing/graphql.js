@@ -7,12 +7,11 @@ const { generatorFs } = require('../../lib/generator-fs');
 const debug = makeDebug('generator-feathers-plus:writing:graphql');
 
 module.exports = {
-  graphql,
+  graphql
 };
 
 function graphql (generator, props, specs, context, state) {
   debug('graphql()');
-
   const {
     // Expanded definitions.
     mapping,
@@ -56,7 +55,7 @@ function graphql (generator, props, specs, context, state) {
     testDir,
     // Constants.
     WRITE_IF_NEW,
-    WRITE_ALWAYS,
+    WRITE_ALWAYS
   } = state;
 
   // Custom template context
@@ -100,7 +99,7 @@ function graphql (generator, props, specs, context, state) {
     tmpl([qlPath, 'sql.resolvers.ejs'], [libDir, 'services', 'graphql', `sql.resolvers.${js}`]),
     tmpl([serPath, 'index.ejs'], [libDir, 'services', `index.${js}`]),
 
-    tmpl([tpl, 'src', 'typings.d.ejs'],     [src, 'typings.d.ts'],             WRITE_ALWAYS, isJs),
+    tmpl([tpl, 'src', 'typings.d.ejs'], [src, 'typings.d.ts'], WRITE_ALWAYS, isJs)
   ];
 
   // Generate modules
@@ -120,7 +119,7 @@ function graphql (generator, props, specs, context, state) {
   }
 
   // Determine which hooks are needed
-  function getHookInfo(name, sc) {
+  function getHookInfo (name, sc) {
     const requiresAuth = specs.graphql.requiresAuth;
 
     const hooks = [ 'iff' ];
@@ -134,7 +133,7 @@ function graphql (generator, props, specs, context, state) {
     const comments = {
       before: [],
       after: [],
-      error: [],
+      error: []
     };
 
     const code = {
@@ -146,7 +145,7 @@ function graphql (generator, props, specs, context, state) {
       },
       error: {
         all: [], find: [], get: [], create: [], update: [], patch: [], remove: []
-      },
+      }
     };
 
     if (requiresAuth) {
@@ -192,7 +191,7 @@ function graphql (generator, props, specs, context, state) {
 }
 
 // eslint-disable-next-line no-unused-vars
-function inspector(desc, obj, depth = 6) {
+function inspector (desc, obj, depth = 6) {
   console.log(desc);
   console.log(inspect(obj, { colors: true, depth }));
 }

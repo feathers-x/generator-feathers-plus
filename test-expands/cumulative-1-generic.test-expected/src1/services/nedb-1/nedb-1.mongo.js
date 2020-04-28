@@ -16,6 +16,18 @@ let moduleExports = merge({},
       },
       nedb2Id: {
         bsonType: "objectId"
+      },
+      testObject: {
+        bsonType: "object",
+        additionalProperties: false,
+        properties: {
+          _id: {
+            bsonType: "objectId"
+          }
+        }
+      },
+      testString: {
+        bsonType: "string"
       }
     }
   },

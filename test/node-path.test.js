@@ -23,7 +23,7 @@ describe('node-path.test', () => {
   });
 
   it('normalize does not change path sep chars', () => {
-    const src = `a${sepOk}b${sepBad}c.js`
+    const src = `a${sepOk}b${sepBad}c.js`;
     const res = normalize(src);
 
     assert.equal(res, src);

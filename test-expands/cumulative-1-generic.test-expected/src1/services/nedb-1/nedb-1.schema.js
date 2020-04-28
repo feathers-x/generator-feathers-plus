@@ -23,9 +23,11 @@ let schema = {
   // Fields in the model.
   properties: {
     // !code: schema_properties
-    id: { type: 'ID' },
-    _id: { type: 'ID' },
-    nedb2Id: { type: 'ID' },
+    id: { type: 'ID',  description: 'Description 1 generic cumulative' },
+    _id: { type: 'ID',  description: 'Description 1 generic cumulative' },
+    nedb2Id: { type: 'ID', description: 'Description 1 generic cumulative' },
+    testObject: { type: 'object', description: 'Description 1 generic cumulative object' },
+    testString: { type: 'string', description: 'Description 1 generic cumulative string' },
     // !end
   },
   // !code: schema_more // !end
@@ -53,7 +55,7 @@ let extensions = {
     ],
     add: {
       // !code: graphql_add
-      nedb2: { type: 'Nedb2!', args: false, relation: { ourTable: 'nedb2Id', otherTable: '_id' } },
+      nedb2: { type: 'Nedb2!', args: false, relation: { ourTable: 'nedb2Id', otherTable: '_id' }, description: 'Description 1 generic cumulative add' },
       // !end
     },
     // !code: graphql_more // !end

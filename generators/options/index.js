@@ -41,7 +41,7 @@ module.exports = class OptionsGenerator extends Generator {
       specs.options.freeze.length ? specs.options.freeze : '  - No files are frozen.',
       chalk.green.bold('\n\nThis project was generated using version '),
       chalk.yellow.bold(specs.options.ver),
-      chalk.green.bold(' of the generator.'),
+      chalk.green.bold(' of the generator.')
     ].join(''));
     this.log();
 
@@ -51,21 +51,21 @@ module.exports = class OptionsGenerator extends Generator {
       type: 'confirm',
       default () {
         return !!specs.options.ts;
-      },
+      }
     }, {
       name: 'semicolons',
       message: 'Use semicolons?',
       type: 'confirm',
       default () {
         return !!specs.options.semicolons;
-      },
+      }
     }, {
       name: 'inspectConflicts',
       message: 'View module changes and control replacement (not recommended)?',
       type: 'confirm',
       default () {
         return !!specs.options.inspectConflicts;
-      },
+      }
     }];
 
     return this.prompt(prompts).then(answers => {
@@ -73,7 +73,7 @@ module.exports = class OptionsGenerator extends Generator {
 
       // Set missing defaults when call during test
       if (this._opts.calledByTest && this._opts.calledByTest.prompts) {
-        this.props = Object.assign({}, this._opts.calledByTest.prompts, this. props);
+        this.props = Object.assign({}, this._opts.calledByTest.prompts, this.props);
       }
 
       debug('options prompting() ends', this.props);

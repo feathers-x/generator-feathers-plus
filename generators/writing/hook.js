@@ -6,7 +6,7 @@ const { generatorFs } = require('../../lib/generator-fs');
 const debug = makeDebug('generator-feathers-plus:writing:hook');
 
 module.exports = {
-  hook,
+  hook
 };
 
 function hook (generator, name, props, specs, context, state) {
@@ -48,7 +48,7 @@ function hook (generator, name, props, specs, context, state) {
     // Other abbreviations using in building 'todos'.
     libDir,
     // Constants.
-    WRITE_IF_NEW,
+    WRITE_IF_NEW
   } = state;
 
   const hookSpec = specs.hooks[name];
@@ -61,11 +61,11 @@ function hook (generator, name, props, specs, context, state) {
     const sfa = generator.getNameSpace(specsService.subFolder)[1];
 
     todos = [
-      tmpl([namePath, 'hooks', 'hook.ejs'], [libDir,  'services', ...sfa, sn, 'hooks', `${hookFile}.${js}`], WRITE_IF_NEW ),
+      tmpl([namePath, 'hooks', 'hook.ejs'], [libDir, 'services', ...sfa, sn, 'hooks', `${hookFile}.${js}`], WRITE_IF_NEW)
     ];
   } else {
     todos = [
-      tmpl([srcPath,  'hooks', 'hook.ejs'], [libDir,  'hooks', `${hookFile}.${js}`],                     WRITE_IF_NEW ),
+      tmpl([srcPath, 'hooks', 'hook.ejs'], [libDir, 'hooks', `${hookFile}.${js}`], WRITE_IF_NEW)
     ];
   }
 
@@ -74,7 +74,7 @@ function hook (generator, name, props, specs, context, state) {
 }
 
 // eslint-disable-next-line no-unused-vars
-function inspector(desc, obj, depth = 6) {
+function inspector (desc, obj, depth = 6) {
   console.log(desc);
   console.log(inspect(obj, { colors: true, depth }));
 }

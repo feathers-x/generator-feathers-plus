@@ -6,9 +6,17 @@
 let moduleExports = `
 # Nedb1 database.
 type Nedb1 {
+  # Description 1 generic cumulative
   id: ID
+  # Description 1 generic cumulative
   _id: ID
+  # Description 1 generic cumulative
   nedb2Id: ID
+  # Description 1 generic cumulative object
+  testObject: JSON
+  # Description 1 generic cumulative string
+  testString: String
+  # Description 1 generic cumulative add
   nedb2: Nedb2!
 }
  

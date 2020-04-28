@@ -60,7 +60,7 @@ module.exports = class MiddlewareGenerator extends Generator {
 
         // Set missing defaults when call during test
         if (this._opts.calledByTest && this._opts.calledByTest.prompts) {
-          this.props = Object.assign({}, this._opts.calledByTest.prompts, this. props);
+          this.props = Object.assign({}, this._opts.calledByTest.prompts, this.props);
         }
 
         initSpecs('middleware', this.props);

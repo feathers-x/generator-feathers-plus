@@ -26,7 +26,7 @@ const EOL = '\n';
 let generators;
 
 // Abstract statements between .js and .ts
-function abstractTs(specs) {
+function abstractTs (specs) {
   const ifTs = specs.options.ts;
   const sc = specs.options.semicolons ? ';' : '';
 
@@ -59,7 +59,7 @@ function abstractTs(specs) {
       if (!ifTs) return `module.exports = ${value}`;
 
       return `export default ${valueTs || value}`;
-    },
+    }
   };
 }
 
@@ -96,13 +96,13 @@ module.exports = function generatorWriting (generator, what) {
 
     // Abstract .js and .ts linting.
     this.lintRule = this.isJs ? 'eslint ' : 'tslint:';
-    this.lintDisable = this.isJs ?  'eslint-disable' : 'tslint:disable';
+    this.lintDisable = this.isJs ? 'eslint-disable' : 'tslint:disable';
     this.lintDisableUnused = this.isJs ? 'eslint-disable no-unused-vars' : 'tslint:disable no-unused-variable';
-    this.lintDisableNextLine = this.isJs ?  'eslint-disable-next-line' : 'tslint:disable-next-line';
-    this.lintDisableNextLineUnused = this.isJs ?
-      'eslint-disable-next-line no-unused-vars' : 'tslint:disable-next-line:no-unused-variable';
-    this.lintDisableNextLineNoConsole = this.isJs ?
-      'eslint-disable-next-line no-console' : 'tslint:disable-next-line:no-console';
+    this.lintDisableNextLine = this.isJs ? 'eslint-disable-next-line' : 'tslint:disable-next-line';
+    this.lintDisableNextLineUnused = this.isJs
+      ? 'eslint-disable-next-line no-unused-vars' : 'tslint:disable-next-line:no-unused-variable';
+    this.lintDisableNextLineNoConsole = this.isJs
+      ? 'eslint-disable-next-line no-console' : 'tslint:disable-next-line:no-console';
     this.ruleQuoteDisable = this.isJs ? 'quotes: 0' : 'disable:quotemark';
 
     // Abstract .js and .ts statements.
@@ -124,7 +124,7 @@ module.exports = function generatorWriting (generator, what) {
     this.merge = merge;
     this.EOL = EOL;
     this.stringifyPlus = stringifyPlus;
-  };
+  }();
 
   // Variables used by individual "generate" modules.
   const state = new function () {
@@ -183,7 +183,7 @@ module.exports = function generatorWriting (generator, what) {
     this.DONT_SKIP_WRITE = false;
 
     return this;
-  };
+  }();
 
   // Dependency used by "generate service".
   const inject = { connection };
@@ -216,17 +216,17 @@ module.exports = function generatorWriting (generator, what) {
 
       middleware(generator, props, specs, context, state);
 
-      if (specs.graphql &&
-        (Object.keys(context.mapping.graphqlService).length || Object.keys(context.mapping.graphqlSql).length)
-      ) {
-        graphql(generator, props, specs, context, state);
-      }
-
       if (process.env.fakes) {
         fakes(generator, props, specs, context, state);
       }
 
       resources(generator, props, specs, context, state);
+
+      if (specs.graphql &&
+        (Object.keys(context.mapping.graphqlService).length || Object.keys(context.mapping.graphqlSql).length)
+      ) {
+        graphql(generator, props, specs, context, state);
+      }
 
       break;
     case 'app':
