@@ -43,7 +43,7 @@ let extensions = {
     ],
     add: {
       // !code: graphql_add
-      nedb2: { type: 'Nedb2!', args: false, relation: { ourTable: 'nedb2Id', otherTable: '_id' } },
+      nedb2: { type: 'Nedb2!', args: false, relation: { ourTable: 'nedb2Id', otherTable: '_id' }, description: 'Test description' },
       // !end
     },
     // !code: graphql_more // !end

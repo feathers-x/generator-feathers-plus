@@ -14,6 +14,7 @@ type Nedb1 {
   nedb2Id: ID
   # Description
   testObject: JSON
+  # Test description
   nedb2: Nedb2!
 }
  
