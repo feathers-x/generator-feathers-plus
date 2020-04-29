@@ -90,7 +90,7 @@
     "request": "2.88.0",
     "request-promise": "4.2.2",
     "semistandard": "12.0.1",
-    "vuepress": "0.14.2",
+    "vuepress": "^1.4.0",
     "yeoman-assert": "3.1.1",
     "yeoman-test": "1.9.1"
   },
