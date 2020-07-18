@@ -28,6 +28,7 @@ let schema = {
     nedb2Id: { type: 'ID', description: 'Description 1 generic cumulative' },
     testObject: { type: 'object', description: 'Description 1 generic cumulative object' },
     testString: { type: 'string', description: 'Description 1 generic cumulative string' },
+    multiType: { anyOf: [{ type: 'number' }, { type: 'null' }] },
     // !end
   },
   // !code: schema_more // !end

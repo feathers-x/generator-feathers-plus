@@ -28,6 +28,9 @@ let moduleExports = merge({},
       },
       testString: {
         bsonType: "string"
+      },
+      multiType: {
+        bsonType: "number"
       }
     }
   },

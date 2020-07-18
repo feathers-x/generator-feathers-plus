@@ -34,6 +34,17 @@ let base = merge({},
       },
       testString: {
         type: "string"
+      },
+      multiType: {
+        anyOf: [
+          {
+            type: "number"
+          },
+          {
+            type: "null"
+          }
+        ],
+        type: "number"
       }
     }
   },

@@ -16,6 +16,7 @@ type Nedb1 {
   testObject: JSON
   # Description 1 generic cumulative string
   testString: String
+  multiType: Float
   # Description 1 generic cumulative add
   nedb2: Nedb2!
 }

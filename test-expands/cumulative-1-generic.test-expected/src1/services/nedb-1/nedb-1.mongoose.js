@@ -12,7 +12,8 @@ let moduleExports = merge({},
   {
     nedb2Id: mongoose.Schema.Types.ObjectId,
     testObject: {},
-    testString: String
+    testString: String,
+    multiType: mongoose.Schema.Types.Mixed
   },
   // !end
   // !code: moduleExports // !end

@@ -24,6 +24,9 @@ let moduleExports = merge({},
     },
     testString: {
       type: DataTypes.TEXT
+    },
+    multiType: {
+      type: DataTypes.REAL
     }
   },
   // !end

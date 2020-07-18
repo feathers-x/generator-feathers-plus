@@ -39,4 +39,8 @@ describe('Creates Mongoose Schemas', function () {
       nullable: true
     }, 'parentId attributes are correctly applied ');
   });
+
+  it('includes attributes of property type ObjectId that references a model', function () {
+    const mongooseSchema = serviceSpecsToMongoose(moviesSchema.schema);
+  });
 });

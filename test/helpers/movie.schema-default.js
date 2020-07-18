@@ -48,7 +48,8 @@ let schema = {
     status: {
       type: 'string',
       default: 'active'
-    }
+    },
+    multiType: { anyOf: [{ type: 'number' }, { type: 'null' }] },
     // !end
   },
   // !code: schema_more // !end
