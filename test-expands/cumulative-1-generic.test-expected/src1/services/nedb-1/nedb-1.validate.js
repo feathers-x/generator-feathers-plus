@@ -30,7 +30,12 @@ let base = merge({},
         type: ID
       },
       testObject: {
-        type: "object"
+        type: "object",
+        properties: {
+          name: {
+            type: "string"
+          }
+        }
       },
       testString: {
         type: "string"

@@ -14,12 +14,36 @@
 
 let base = merge({},
 <% __jsonSchema = merge({}, feathersSpecs[serviceName]);
+
+  function clearObjectDesc(object){
+     if(!object.properties) return object
+      Object.keys(object.properties).map(prop=>{
+      if(object.properties[prop].description){
+        delete object.properties[prop].description;
+      }
+      });
+      return object;
+    }
+
    delete __jsonSchema._extensions;
+
+
    Object.keys(__jsonSchema.properties).map(prop=>{
       if(__jsonSchema.properties[prop].description){
         delete __jsonSchema.properties[prop].description;
       }
     });
+
+    Object.keys(__jsonSchema.properties).map(prop=>{
+      if(__jsonSchema.properties[prop].__schema){
+        delete __jsonSchema.properties[prop].__schema;
+      }
+      if(__jsonSchema.properties[prop].type === 'object'){
+        __jsonSchema.properties[prop] = clearObjectDesc(__jsonSchema.properties[prop])
+      }
+    });
+
+
    __str = stringifyPlus(__jsonSchema).replace(/"ID"/g, 'ID')
      .split('\n').map(str => `  ${str}`).join('\n');
 -%>

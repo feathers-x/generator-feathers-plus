@@ -23,6 +23,9 @@ let moduleExports = merge({},
         properties: {
           _id: {
             bsonType: "objectId"
+          },
+          name: {
+            bsonType: "string"
           }
         }
       },

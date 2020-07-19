@@ -26,7 +26,13 @@ let schema = {
     id: { type: 'ID',  description: 'Description 1 generic cumulative' },
     _id: { type: 'ID',  description: 'Description 1 generic cumulative' },
     nedb2Id: { type: 'ID', description: 'Description 1 generic cumulative' },
-    testObject: { type: 'object', description: 'Description 1 generic cumulative object' },
+    testObject: { type: 'object',
+                  description: 'Description 1 generic cumulative object',
+                  __schema: 'Testobject',
+                  properties:{
+                    name: { type: 'string', description: 'This is nested Object' }
+                  } 
+    },
     testString: { type: 'string', description: 'Description 1 generic cumulative string' },
     multiType: { anyOf: [{ type: 'number' }, { type: 'null' }] },
     // !end
