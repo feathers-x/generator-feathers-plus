@@ -1480,9 +1480,9 @@ function compare (fileName, appDir, expectedDir) {
   const diff = jsDiff.diffChars(actual, expected);
 
   if (diff.length > 1) {
-    // console.log('\nvvvvv actual module vvvvv');
-    // console.log(actual);
-    // console.log('^^^^^');
+    console.log('\nvvvvv actual module vvvvv');
+    console.log(actual);
+    console.log('^^^^^');
     console.log('\nvvvvv expected module vvvvv');
     console.log(expected);
     console.log('^^^^^');
@@ -1496,7 +1496,7 @@ function compare (fileName, appDir, expectedDir) {
 
       return accum + value[color];
     }, '');
-
+    console.log(diff)
     console.log('\nvvvvv module diff vvvvv');
     process.stderr.write(str);
     console.log('\n^^^^^');
