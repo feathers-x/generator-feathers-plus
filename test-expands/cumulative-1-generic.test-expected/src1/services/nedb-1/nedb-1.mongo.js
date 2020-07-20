@@ -32,7 +32,7 @@ let moduleExports = merge({},
       testArray: {
         items: {
           type: "object",
-          __schema: "TestArrayItems",
+          __addType: "TestArrayItems",
           properties: {
             stringProp: {
               type: "string"
@@ -47,7 +47,7 @@ let moduleExports = merge({},
       testArray2: {
         items: {
           type: "object",
-          __type: "Testobject"
+          graphType: "Testobject"
         },
         bsonType: "array"
       },

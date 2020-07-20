@@ -26,6 +26,11 @@ type Nedb2 {
   nedb1: Nedb1!
 }
  
+# Description 1 generic cumulative object
+type Testobject {
+  # This is nested Object
+  name: String
+}
 
 type Query {
   getNedb1(key: JSON, query: JSON, params: JSON): Nedb1
