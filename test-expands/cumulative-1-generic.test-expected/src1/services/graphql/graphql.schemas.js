@@ -14,6 +14,9 @@ type Nedb1 {
   nedb2Id: ID
   # Description 1 generic cumulative object
   testObject: Testobject
+  testArray: [JSON]
+  # TestArray2 Desc
+  testArray2: [Testobject]
   # Description 1 generic cumulative string
   testString: String
   multiType: Float
@@ -34,7 +37,7 @@ type Testobject {
   # This is nested Object
   name: String
 }
- 
+
 type Query {
   getNedb1(key: JSON, query: JSON, params: JSON): Nedb1
   findNedb1(query: JSON, params: JSON): [Nedb1]!

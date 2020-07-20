@@ -37,6 +37,26 @@ let base = merge({},
           }
         }
       },
+      testArray: {
+        type: "array",
+        items: {
+          type: "object",
+          properties: {
+            stringProp: {
+              type: "string"
+            },
+            numberProp: {
+              type: "number"
+            }
+          }
+        }
+      },
+      testArray2: {
+        type: "array",
+        items: {
+          type: "object"
+        }
+      },
       testString: {
         type: "string"
       },

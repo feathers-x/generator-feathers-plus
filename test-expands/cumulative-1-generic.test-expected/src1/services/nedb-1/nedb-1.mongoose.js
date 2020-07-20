@@ -14,6 +14,15 @@ let moduleExports = merge({},
     testObject: {
       name: String
     },
+    testArray: [
+      {
+        stringProp: String,
+        numberProp: Number
+      }
+    ],
+    testArray2: [
+      {}
+    ],
     testString: String,
     multiType: mongoose.Schema.Types.Mixed
   },

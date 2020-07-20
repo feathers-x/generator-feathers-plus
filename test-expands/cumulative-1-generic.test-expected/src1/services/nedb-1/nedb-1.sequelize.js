@@ -22,6 +22,12 @@ let moduleExports = merge({},
     testObject: {
       type: DataTypes.JSONB
     },
+    testArray: {
+      type: DataTypes.JSONB
+    },
+    testArray2: {
+      type: DataTypes.JSONB
+    },
     testString: {
       type: DataTypes.TEXT
     },

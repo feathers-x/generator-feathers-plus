@@ -29,6 +29,28 @@ let moduleExports = merge({},
           }
         }
       },
+      testArray: {
+        items: {
+          type: "object",
+          __schema: "TestArrayItems",
+          properties: {
+            stringProp: {
+              type: "string"
+            },
+            numberProp: {
+              type: "number"
+            }
+          }
+        },
+        bsonType: "array"
+      },
+      testArray2: {
+        items: {
+          type: "object",
+          __type: "Testobject"
+        },
+        bsonType: "array"
+      },
       testString: {
         bsonType: "string"
       },
