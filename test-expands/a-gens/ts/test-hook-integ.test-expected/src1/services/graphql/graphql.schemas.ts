@@ -25,7 +25,6 @@ type Nedb2 {
 type Movies {
   title: String
 }
-
 # Description 1 generic cumulative object
 type Testobject {
   # This is nested Object
