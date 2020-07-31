@@ -32,7 +32,7 @@ let schema = {
                                         }
                                       }
     },
-    testArray2: { type: 'array', items: { type: 'object', graphType : 'Testobject' }, description: 'TestArray2 Desc'},
+    testArray2: { type: 'array', items: { type: 'object', createType : 'Testobject' }, description: 'TestArray2 Desc'},
     testString: { type: 'string', description: 'Description 1 generic cumulative string' },
     multiType: { anyOf: [{ type: 'number' }, { type: 'null' }] },
     // !end

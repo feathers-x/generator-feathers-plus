@@ -26,6 +26,11 @@ type Nedb2 {
   nedb1: Nedb1!
 }
  
+# Movies
+type Movies {
+  title: String
+}
+
 # Description 1 generic cumulative object
 type Testobject {
   # This is nested Object
