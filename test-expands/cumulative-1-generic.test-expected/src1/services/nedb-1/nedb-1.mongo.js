@@ -47,7 +47,7 @@ let moduleExports = merge({},
       testArray2: {
         items: {
           type: "object",
-          createType: "Testobject"
+          addType: "Testobject"
         },
         bsonType: "array"
       },

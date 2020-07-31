@@ -14,7 +14,7 @@ type Nedb1 {
   nedb2Id: ID
   # Description 1 generic cumulative object
   testObject: Testobject
-  testArray: [JSON]
+  testArray: [TestArrayItems]
   # TestArray2 Desc
   testArray2: [Testobject]
   # Description 1 generic cumulative string
