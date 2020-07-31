@@ -32,7 +32,7 @@ let moduleExports = merge({},
       testArray: {
         items: {
           type: "object",
-          __addType: "TestArrayItems",
+          addType: "TestArrayItems",
           properties: {
             stringProp: {
               type: "string"

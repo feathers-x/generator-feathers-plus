@@ -19,13 +19,13 @@ let schema = {
     nedb2Id: { type: 'ID', description: 'Description 1 generic cumulative' },
     testObject: { type: 'object',
                   description: 'Description 1 generic cumulative object',
-                  __addType: 'Testobject',
+                  addType: 'Testobject',
                   properties:{
                     name: { type: 'string', description: 'This is nested Object' }
                   } 
     },
     testArray: { type: 'array', items: { type: 'object',
-                                         __addType: 'TestArrayItems',
+                                         addType: 'TestArrayItems',
                                         properties: {
                                           stringProp: { type: 'string' },
                                           numberProp: { type: 'number' },
