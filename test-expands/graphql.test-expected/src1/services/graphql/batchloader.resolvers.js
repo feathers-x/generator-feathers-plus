@@ -113,6 +113,11 @@ let moduleExports = function batchLoaderResolvers(app, options) {
       // !<DEFAULT> code: resolver-Nedb1-nedb2
       nedb2: getResult('Nedb1.nedb2', 'nedb2Id'),
       // !end
+
+      // movies: Movies
+      // !<DEFAULT> code: resolver-Nedb1-movies-non
+      movies: (parent, args, content, ast) => { throw Error('GraphQL fieldName Nedb1.movies is not calculated.'); },
+      // !end
     },
 
     Nedb2: {

@@ -29,6 +29,12 @@ let moduleExports = function serviceResolvers(app, options) {
           return nedb2.find(feathersParams).then(extractFirstItem);
         },
         // !end
+
+      // movies: Movies
+      movies:
+        // !<DEFAULT> code: resolver-Nedb1-movies-non
+        (parent, args, content, ast) => { throw Error('GraphQL fieldName Nedb1.movies is not calculated.'); },
+        // !end
     },
 
     Nedb2: {

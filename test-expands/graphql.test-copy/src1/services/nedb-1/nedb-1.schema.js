@@ -43,6 +43,11 @@ let extensions = {
     add: {
       // !code: graphql_add
       nedb2: { type: 'Nedb2!', args: false, relation: { ourTable: 'nedb2Id', otherTable: '_id' } },
+      movies: {type: 'Movies', args: false, addType: {
+        properties: {
+          title: {type: 'string'}
+        }
+      }}
       // !end
     },
     // !code: graphql_more // !end

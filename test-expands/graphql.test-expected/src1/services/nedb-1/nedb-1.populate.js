@@ -17,6 +17,7 @@ const queries = {
   oneLevel: {
     query: {
       nedb2: {},
+      movies: {},
     }
   },
   // All resolver fields 2 levels deep.
@@ -24,6 +25,8 @@ const queries = {
     query: {
       nedb2: {
         nedb1: {},
+      },
+      movies: {
       },
     }
   },
@@ -96,6 +99,9 @@ const twoLevelsFields = {
       _id: 1,
       nedb1Id: 1,
       nedb1: {},
+    },
+    movies: {
+      _args: {},
     },
   }
 };

@@ -24,6 +24,7 @@ const queries = {
     query: {
       nedb1: {
         nedb2: {},
+        movies: {},
       },
     }
   },
@@ -96,6 +97,7 @@ const twoLevelsFields = {
       _id: 1,
       nedb2Id: 1,
       nedb2: {},
+      movies: {},
     },
   }
 };

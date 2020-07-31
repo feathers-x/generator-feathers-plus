@@ -10,6 +10,7 @@ type Nedb1 {
   _id: ID
   nedb2Id: ID
   nedb2: Nedb2!
+  movies: Movies
 }
  
 # Nedb2 database.
