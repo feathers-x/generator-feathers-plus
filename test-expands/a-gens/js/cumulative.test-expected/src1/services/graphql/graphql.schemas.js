@@ -35,6 +35,11 @@ type Testobject {
   # This is nested Object
   name: String
 }
+# No description available
+type TestArrayItems {
+  stringProp: String
+  numberProp: Float
+}
 
 type Query {
   getNedb1(key: JSON, query: JSON, params: JSON): Nedb1

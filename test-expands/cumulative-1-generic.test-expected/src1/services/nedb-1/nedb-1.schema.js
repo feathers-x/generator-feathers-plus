@@ -28,20 +28,20 @@ let schema = {
     nedb2Id: { type: 'ID', description: 'Description 1 generic cumulative' },
     testObject: { type: 'object',
                   description: 'Description 1 generic cumulative object',
-                  addType: 'Testobject',
+                  createType: 'Testobject',
                   properties:{
                     name: { type: 'string', description: 'This is nested Object' }
                   } 
     },
     testArray: { type: 'array', items: { type: 'object',
-                                         addType: 'TestArrayItems',
+                                         createType: 'TestArrayItems',
                                         properties: {
                                           stringProp: { type: 'string' },
                                           numberProp: { type: 'number' },
                                         }
                                       }
     },
-    testArray2: { type: 'array', items: { type: 'object', addType : 'Testobject' }, description: 'TestArray2 Desc'},
+    testArray2: { type: 'array', items: { type: 'object', createType : 'Testobject' }, description: 'TestArray2 Desc'},
     testString: { type: 'string', description: 'Description 1 generic cumulative string' },
     multiType: { anyOf: [{ type: 'number' }, { type: 'null' }] },
     // !end

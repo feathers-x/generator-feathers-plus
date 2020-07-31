@@ -36,8 +36,8 @@ let base = merge({},
     });
 
     Object.keys(__jsonSchema.properties).map(prop=>{
-      if(__jsonSchema.properties[prop].addType){
-        delete __jsonSchema.properties[prop].addType;
+      if(__jsonSchema.properties[prop].createType){
+        delete __jsonSchema.properties[prop].createType;
       }
       if(__jsonSchema.properties[prop].createType){
         delete __jsonSchema.properties[prop].createType;
@@ -46,8 +46,8 @@ let base = merge({},
         delete __jsonSchema.properties[prop].items.createType
       }
 
-      if(__jsonSchema.properties[prop].items && __jsonSchema.properties[prop].items.addType){
-        delete __jsonSchema.properties[prop].items.addType
+      if(__jsonSchema.properties[prop].items && __jsonSchema.properties[prop].items.createType){
+        delete __jsonSchema.properties[prop].items.createType
       }
       if(__jsonSchema.properties[prop].type === 'object'){
         __jsonSchema.properties[prop] = clearObjectDesc(__jsonSchema.properties[prop])
