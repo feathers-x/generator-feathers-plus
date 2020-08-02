@@ -24,6 +24,7 @@ type Nedb2 {
 # Movies
 type Movies {
   title: String
+  actors: [String]
 }
 # Description 1 generic cumulative object
 type Testobject {

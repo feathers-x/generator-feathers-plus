@@ -23,6 +23,7 @@ type Nedb2 {
 # Movies
 type Movies {
   title: String
+  actors: [String]
 }
 
 type Query {

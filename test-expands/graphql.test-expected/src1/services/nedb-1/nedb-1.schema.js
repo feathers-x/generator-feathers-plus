@@ -57,7 +57,8 @@ let extensions = {
       movies: {type: 'Movies', args: false, 
         createType: 'Movies', 
         properties: {
-          title: { type: 'string'}
+          title: { type: 'string'},
+          actors: { type: 'array', items : { type: 'string' } }
         }
       }
       // !end
