@@ -71,7 +71,7 @@
     "json-schema-seeder": "0.1.10",
     "lodash": "4.17.10",
     "lodash.merge": "4.6.1",
-    "mongoose": "5.2.8",
+    "mongoose": "5.7.5",
     "pluralize": "7.0.0",
     "sequelizer": "1.1.3",
     "snazzy": "7.1.1",
