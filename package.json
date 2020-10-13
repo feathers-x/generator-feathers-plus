@@ -70,7 +70,7 @@
     "json-schema-deref-sync": "0.5.0",
     "json-schema-seeder": "0.1.10",
     "lodash": "4.17.10",
-    "lodash.merge": "4.6.1",
+    "lodash.merge": "4.6.2",
     "mongoose": "5.2.8",
     "pluralize": "7.0.0",
     "sequelizer": "1.1.3",
